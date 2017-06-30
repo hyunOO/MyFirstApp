@@ -6,4 +6,15 @@
     android:layout_height="match_parent"
     tools:context="com.example.myfirstapp.TabB">
 
+    <GridView
+        android:layout_width="368dp"
+        android:layout_height="480dp"
+        android:alwaysDrawnWithCache="true"
+        android:clickable="true"
+        android:numColumns="5"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="-367dp"
+        tools:layout_editor_absoluteY="266dp" />
+
+
 </android.support.constraint.ConstraintLayout>
