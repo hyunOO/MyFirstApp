@@ -13,6 +13,5 @@
         android:text="Home"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp"
-        android:layout_alighParentTop="true"
         android:layout_centerHorizontal="true"/>
 </android.support.constraint.ConstraintLayout>

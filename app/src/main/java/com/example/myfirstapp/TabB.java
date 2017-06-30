@@ -12,7 +12,7 @@ public class TabB extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_b);
 
-        Gridview gv = (GridView)findViewById(R.id.gridView);
+        GridView gv = (GridView)findViewById(R.id.gridView);
 
     }
 }
