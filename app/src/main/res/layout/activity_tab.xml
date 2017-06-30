@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.myfirstapp.TabA">
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp"
+        android:layout_alighParentTop="true"
+        android:layout_centerHorizontal="true"/>
 </android.support.constraint.ConstraintLayout>
