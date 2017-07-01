@@ -14,13 +14,5 @@ public class TabA extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
 
-        Button home = (Button)findViewById(R.id.button);
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 }
