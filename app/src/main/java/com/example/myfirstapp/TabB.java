@@ -19,6 +19,8 @@ public class TabB extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_b);
 
+        String[] web = {"google", "github", "instagram", "facebook","d","f","g","h","lk","ds"};
+
         GalleryAdapter adapter = new GalleryAdapter(TabB.this, web, img);
         GridView gv = (GridView)findViewById(R.id.gridView);
         gv.setAdapter(adapter);
