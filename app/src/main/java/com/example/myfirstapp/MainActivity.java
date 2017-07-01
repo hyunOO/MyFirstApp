@@ -1,5 +1,6 @@
 package com.example.myfirstapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,21 +20,24 @@ public class MainActivity extends AppCompatActivity {
         btn01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.activity_tab);
+                Intent intent = new Intent(getApplicationContext(), TabA.class);
+                startActivity(intent);
             }
         });
 
         btn02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.activity_tab_b);
+                Intent intent = new Intent(getApplicationContext(), TabB.class);
+                startActivity(intent);
             }
         });
 
         btn03.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.activity_tab_c);
+                Intent intent = new Intent(getApplicationContext(), TabC.class);
+                startActivity(intent);
             }
         });
     }
