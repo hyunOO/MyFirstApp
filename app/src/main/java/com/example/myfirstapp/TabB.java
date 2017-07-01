@@ -1,10 +1,12 @@
 package com.example.myfirstapp;
 
 
+import android.Manifest;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,10 +16,6 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
-
-import static java.security.AccessController.getContext;
-
 public class TabB extends AppCompatActivity {
 
     @Override
@@ -25,25 +23,16 @@ public class TabB extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_b);
 
+        //from here, there is a runtime permission problem.
         String[] projection = {MediaStore.Images.Media.DATA};
 
-        ArrayList<Integer> img = new ArrayList<>();
-        CursorLoader cursorLoader = new CursorLoader(getApplicationContext(), MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, null);
-        Cursor cursor = cursorLoader.loadInBackground();
-        int column_index ;
+        Cursor cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection,null, null, null);
+        cursor.moveToFirst();
 
-        column_index = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
-        /*img.add(column_index);
-
+        int columnindex = cursor.getColumnIndex(projection[0]);
         cursor.close();
 
-        int[] imgid= new int[img.size()];
-        for (int i =0; i<img.size(); i++){
-            imgid[i] = img.get(i);
-        }
-*/
-        int[] imgid = new int[1];
-        imgid[0] = column_index;
+        int[] imgid = {R.drawable.img1, R.drawable.img2, R.drawable.img3,R.drawable.img4, R.drawable.img5,R.drawable.img6, R.drawable.img7, R.drawable.img8};
 
         GalleryAdapter adapter = new GalleryAdapter(TabB.this, imgid);
         GridView gv = (GridView)findViewById(R.id.gridView);
