@@ -19,7 +19,21 @@ public class MainActivity extends AppCompatActivity {
         btn01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.button01);
+                setContentView(R.layout.activity_tab);
+            }
+        });
+
+        btn02.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.activity_tab_b);
+            }
+        });
+
+        btn03.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.activity_tab_c);
             }
         });
     }
