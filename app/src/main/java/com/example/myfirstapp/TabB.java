@@ -2,6 +2,8 @@ package com.example.myfirstapp;
 
 
 import android.content.Context;
+import android.content.CursorLoader;
+import android.database.Cursor;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +14,10 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
+import static java.security.AccessController.getContext;
+
 public class TabB extends AppCompatActivity {
 
     @Override
@@ -21,13 +27,27 @@ public class TabB extends AppCompatActivity {
 
         String[] projection = {MediaStore.Images.Media.DATA};
 
+        ArrayList<Integer> img = new ArrayList<>();
+        CursorLoader cursorLoader = new CursorLoader(getApplicationContext(), MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, null);
+        Cursor cursor = cursorLoader.loadInBackground();
+        int column_index ;
 
-        int[] img = {R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark,R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark};
+        column_index = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
+        /*img.add(column_index);
 
-        GalleryAdapter adapter = new GalleryAdapter(TabB.this, img);
+        cursor.close();
+
+        int[] imgid= new int[img.size()];
+        for (int i =0; i<img.size(); i++){
+            imgid[i] = img.get(i);
+        }
+*/
+        int[] imgid = new int[1];
+        imgid[0] = column_index;
+
+        GalleryAdapter adapter = new GalleryAdapter(TabB.this, imgid);
         GridView gv = (GridView)findViewById(R.id.gridView);
         gv.setAdapter(adapter);
-
     }
 }
 
