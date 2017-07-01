@@ -5,16 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by q on 2017-07-01.
  */
 
 public class CustomChoiceListViewAdapter extends BaseAdapter {
+
     private ArrayList <ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
 
     public CustomChoiceListViewAdapter(){
@@ -31,6 +34,7 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
         final int pos = position;
         final Context context = parent.getContext();
 
+
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.custom_listview, parent, false);
@@ -40,6 +44,7 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
         ListViewItem listViewItem = listViewItemList.get(position);
         textTextView1.setText(listViewItem.getText1());
         textTextView2.setText(listViewItem.getText2());
+
         return convertView;
     }
 
@@ -57,6 +62,11 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
         item.setText1(text1);
         item.setText2(text2);
         listViewItemList.add(item);
+    }
+
+    public void deleteItem(int checked){
+        ListViewItem item = listViewItemList.get(checked);
+        listViewItemList.remove(checked);
     }
 
 }
