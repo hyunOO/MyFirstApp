@@ -24,14 +24,14 @@ public class TabB extends AppCompatActivity {
         setContentView(R.layout.activity_tab_b);
 
         //from here, there is a runtime permission problem.
-        String[] projection = {MediaStore.Images.Media.DATA};
+       /* String[] projection = {MediaStore.Images.Media.DATA};
 
         Cursor cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection,null, null, null);
         cursor.moveToFirst();
 
         int columnindex = cursor.getColumnIndex(projection[0]);
         cursor.close();
-
+*/
         int[] imgid = {R.drawable.img1, R.drawable.img2, R.drawable.img3,R.drawable.img4, R.drawable.img5,R.drawable.img6, R.drawable.img7, R.drawable.img8};
 
         GalleryAdapter adapter = new GalleryAdapter(TabB.this, imgid);
