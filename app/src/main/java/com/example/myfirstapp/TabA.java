@@ -49,6 +49,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.jar.Manifest;
 
+import static com.example.myfirstapp.R.layout.calling_dialog;
 import static com.example.myfirstapp.R.layout.dialog;
 import static com.example.myfirstapp.R.layout.search;
 
@@ -149,13 +150,72 @@ public class TabA extends AppCompatActivity {
             }
         });
 
-        modifyButton.setOnClickListener(new View.OnClickListener(){
+        modifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                int checked = listView.getCheckedItemPosition();
+            public void onClick(View v) {
+                Context mContext = getApplicationContext();
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+                final View layout = inflater.inflate(calling_dialog, null);
+
                 AlertDialog.Builder alert = new AlertDialog.Builder(TabA.this);
-                alert.setTitle("정말");
-                alert.setMessage(checked);
+                alert.setTitle("전화걸기");
+                alert.setView(layout);
+
+                alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        final EditText eName = (EditText) layout.findViewById(R.id.calling_name);
+                        AssetManager assetManager = getResources().getAssets();
+                        try{
+                            AssetManager.AssetInputStream ais = (AssetManager.AssetInputStream) assetManager.open("address.jason");
+                            BufferedReader br = new BufferedReader(new InputStreamReader(ais));
+                            StringBuilder sb = new StringBuilder();
+                            int bufferSize = 1024 * 1024;
+                            char readBuf[] = new char[bufferSize];
+                            int resultSize = 0;
+                            while((resultSize = br.read(readBuf)) != -1){
+                                if(resultSize == bufferSize)
+                                    sb.append(readBuf);
+                                else{
+                                    for(int i = 0; i< resultSize; i++)
+                                        sb.append(readBuf[i]);
+                                }
+                            }
+                            String jString = sb.toString();
+                            JSONObject jsonObject = new JSONObject(jString);
+                            JSONArray jArray = new JSONArray(jsonObject.getString("address"));
+                            int addrlen = jArray.length();
+                            boolean eXist = true;
+                            for(int i = 0; i<addrlen; i++){
+                                String name = jArray.getJSONObject(i).getString("name").toString();
+                                String searchedname = eName.getText().toString();
+                                if(searchedname.equals(name)){
+                                    eXist = false;
+                                    String phNumber = jArray.getJSONObject(i).getString("phNumber").toString();
+                                    Intent myIntent = new Intent (Intent.ACTION_VIEW, Uri.parse("tel:"+phNumber));
+                                    startActivity(myIntent);
+                                }
+                            }
+                            if(eXist) {
+                                final AlertDialog.Builder result = new AlertDialog.Builder(TabA.this);
+                                result.setTitle("전화번호 검색결과");
+                                result.setMessage("검색결과가 없습니다");
+                                result.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface di, int whichButton) {
+
+                                    }
+                                });
+                                result.show();
+                            }
+                        } catch(Exception e){
+
+                        }
+                    }
+                });
+                alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
                 alert.show();
             }
         });
