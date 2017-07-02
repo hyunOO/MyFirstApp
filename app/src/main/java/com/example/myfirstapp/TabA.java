@@ -38,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.lang.reflect.Array;
@@ -223,8 +224,24 @@ public class TabA extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int checked = listView.getCheckedItemPosition();
-                adapter1.delete(checked);
+                File file = new File("file.text");
+                FileWriter fw = null;
+                String text = "TEST";
+                try{
+                    fw = new FileWriter(file);
+                    fw.write(text);
+                    Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_LONG).show();
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+                if (fw != null) {
+                    try {
+                        fw.close() ;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
 
