@@ -26,6 +26,8 @@
         <activity android:name= ".Image"></activity>
         <activity android:name=".AnswerTabC"></activity>
         <activity android:name=".QuestTabC"></activity>
+        <activity android:name=".QuestTabC_2"></activity>
+        <activity android:name=".AnswerTabC_0"></activity>
     </application>
 
 </manifest>

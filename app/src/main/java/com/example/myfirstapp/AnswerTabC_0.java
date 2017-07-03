@@ -1,75 +1,39 @@
 package com.example.myfirstapp;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 
 /**
  * Created by q on 2017-07-03.
  */
 
-public class AnswerTabC extends AppCompatActivity {
+public class AnswerTabC_0 extends AppCompatActivity{
 
-    //bluetooth 관련한 생성자들
-    BluetoothAdapter adapter;
-    BluetoothDevice device;
-    BluetoothSocket socket = null;
-    OutputStream output = null;
     InputStream input = null;
+    String answer= null;// the final answer for 스무고개
 
-    Thread thd = null;
-
-    TextView view;
+    Thread thd= null;
 
     byte[] buffer;
     int buf_position;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dap_2);
+        setContentView(R.layout.activity_dap_1);
 
-        Intent intent = getIntent();
-        final String answer = intent.getExtras().getString("answer");
+        Intent intent = new Intent(getApplicationContext(), AnswerTabC.class);
 
-        final EditText texts = (EditText)findViewById(R.id.question_to_quest);
-        Button btn03 = (Button)findViewById(R.id.submit_dap_to_quest);
-        view = (TextView)findViewById(R.id.show_answer);
-
-        btn03.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendData(texts.getText().toString());
-                texts.setText("");
-            }
-        });
-
-        listenForData();
-
-    }
-
-    public void sendData(String  msg){
-        msg +="\n";
-        try{
-            output.write(msg.getBytes());
-        }catch(Exception e){
-            Toast.makeText(getApplicationContext(),"Bluetooth connection failed.",Toast.LENGTH_LONG).show();
-            finish();
+        if (answer!=null){
+            intent.putExtra("answer",answer);
+            startActivity(intent);
         }
     }
-
     public void listenForData(){
         final Handler handler = new Handler();
         buf_position=0;
@@ -94,7 +58,7 @@ public class AnswerTabC extends AppCompatActivity {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            view.setText(data+"\n");
+                                            answer=data;
                                         }
                                     });
                                 }else{
@@ -109,10 +73,5 @@ public class AnswerTabC extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @Override
-    public void onBackPressed(){
-        super.onBackPressed();
     }
 }

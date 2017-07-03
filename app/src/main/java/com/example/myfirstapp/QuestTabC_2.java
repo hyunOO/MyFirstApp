@@ -20,9 +20,8 @@ import java.io.OutputStream;
  * Created by q on 2017-07-03.
  */
 
-public class AnswerTabC extends AppCompatActivity {
+public class QuestTabC_2 extends AppCompatActivity{
 
-    //bluetooth 관련한 생성자들
     BluetoothAdapter adapter;
     BluetoothDevice device;
     BluetoothSocket socket = null;
@@ -31,35 +30,48 @@ public class AnswerTabC extends AppCompatActivity {
 
     Thread thd = null;
 
-    TextView view;
+    TextView ques_text;
+
+    int ban_number = 0;
+    int ban_limit = 3;
 
     byte[] buffer;
     int buf_position;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dap_2);
-
+        setContentView(R.layout.activity_que_2);
         Intent intent = getIntent();
         final String answer = intent.getExtras().getString("answer");
 
-        final EditText texts = (EditText)findViewById(R.id.question_to_quest);
-        Button btn03 = (Button)findViewById(R.id.submit_dap_to_quest);
-        view = (TextView)findViewById(R.id.show_answer);
+        final Button ban_button = (Button)findViewById(R.id.ban);
+        Button insert_button = (Button)findViewById(R.id.button3);
+        ques_text = (TextView)findViewById(R.id.textView7);
+        final EditText ans_text = (EditText)findViewById(R.id.textView4);
 
-        btn03.setOnClickListener(new View.OnClickListener() {
+        insert_button.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                sendData(texts.getText().toString());
-                texts.setText("");
+            public void onClick(View v){
+                sendData(ans_text.getText().toString());
+                ans_text.setText("");
+
             }
         });
-
         listenForData();
-
+        ban_button.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    if (ban_number<ban_limit) {
+                        ban_number += 1;
+                        Toast.makeText(getApplicationContext(), "You banned " + ban_number + " questions.\nYou can ban " + ban_limit + " more questions.", Toast.LENGTH_LONG).show();
+                        ques_text.setText("");
+                    }else{
+                        Toast.makeText(getApplicationContext(),"You can't ban questions.",Toast.LENGTH_LONG).show();
+                    }
+                }
+        });
     }
-
     public void sendData(String  msg){
         msg +="\n";
         try{
@@ -69,7 +81,6 @@ public class AnswerTabC extends AppCompatActivity {
             finish();
         }
     }
-
     public void listenForData(){
         final Handler handler = new Handler();
         buf_position=0;
@@ -94,7 +105,7 @@ public class AnswerTabC extends AppCompatActivity {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            view.setText(data+"\n");
+                                            ques_text.setText(data+"\n");
                                         }
                                     });
                                 }else{
@@ -109,10 +120,5 @@ public class AnswerTabC extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @Override
-    public void onBackPressed(){
-        super.onBackPressed();
     }
 }

@@ -30,6 +30,9 @@ public class QuestTabC extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sendData(texts.getText().toString());
+                Intent intent = new Intent(getApplicationContext(), QuestTabC_2.class);
+                intent.putExtra("answer",texts.getText().toString());
+                startActivity(intent);
             }
         });
     }
