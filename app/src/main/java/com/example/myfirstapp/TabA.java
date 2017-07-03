@@ -1,19 +1,14 @@
 package com.example.myfirstapp;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.net.Uri;
-import android.nfc.Tag;
-import android.os.AsyncTask;
+import android.Manifest;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -48,7 +43,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.jar.Manifest;
 
 import static com.example.myfirstapp.R.layout.calling_dialog;
 import static com.example.myfirstapp.R.layout.dialog;
@@ -69,18 +63,18 @@ public class TabA extends AppCompatActivity {
 
         AssetManager assetManager = getResources().getAssets();
 
-        try{
+        try {
             AssetManager.AssetInputStream ais = (AssetManager.AssetInputStream) assetManager.open("address.jason");
             BufferedReader br = new BufferedReader(new InputStreamReader(ais));
             StringBuilder sb = new StringBuilder();
             int bufferSize = 1024 * 1024;
             char readBuf[] = new char[bufferSize];
             int resultSize = 0;
-            while((resultSize = br.read(readBuf)) != -1){
-                if(resultSize == bufferSize)
+            while ((resultSize = br.read(readBuf)) != -1) {
+                if (resultSize == bufferSize)
                     sb.append(readBuf);
-                else{
-                    for(int i = 0; i< resultSize; i++)
+                else {
+                    for (int i = 0; i < resultSize; i++)
                         sb.append(readBuf[i]);
                 }
             }
@@ -88,7 +82,7 @@ public class TabA extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(jString);
             JSONArray jArray = new JSONArray(jsonObject.getString("address"));
             int addrlen = jArray.length();
-            for(int i = 0; i<addrlen; i++){
+            for (int i = 0; i < addrlen; i++) {
                 String name = jArray.getJSONObject(i).getString("name").toString();
                 String phNumber = jArray.getJSONObject(i).getString("phNumber").toString();
                 ListViewItem data = new ListViewItem();
@@ -96,7 +90,7 @@ public class TabA extends AppCompatActivity {
                 data.setText2(phNumber);
                 adapter1.add(data);
             }
-        } catch(Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -106,7 +100,7 @@ public class TabA extends AppCompatActivity {
         synchButton = (Button) findViewById(R.id.synchro);
 
         ArrayList<ListViewItem> lvi = getContactList();
-        for(int i = 0; i< lvi.size(); i++){
+        for (int i = 0; i < lvi.size(); i++) {
             adapter1.add(lvi.get(i));
         }
 
@@ -131,14 +125,14 @@ public class TabA extends AppCompatActivity {
                         data.setText1(name);
                         data.setText2(phNumber);
                         adapter1.add(data);
-                        try{
+                        try {
                             JSONObject obj = new JSONObject();
                             obj.put("name", name);
                             obj.put("phNumber", phNumber);
                             String jsonString = obj.toString();
                             FileWriter fw = new FileWriter("address.jason");
                             fw.write(jsonString);
-                        } catch(Exception e){
+                        } catch (Exception e) {
 
                         }
                     }
@@ -167,18 +161,18 @@ public class TabA extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         final EditText eName = (EditText) layout.findViewById(R.id.calling_name);
                         AssetManager assetManager = getResources().getAssets();
-                        try{
+                        try {
                             AssetManager.AssetInputStream ais = (AssetManager.AssetInputStream) assetManager.open("address.jason");
                             BufferedReader br = new BufferedReader(new InputStreamReader(ais));
                             StringBuilder sb = new StringBuilder();
                             int bufferSize = 1024 * 1024;
                             char readBuf[] = new char[bufferSize];
                             int resultSize = 0;
-                            while((resultSize = br.read(readBuf)) != -1){
-                                if(resultSize == bufferSize)
+                            while ((resultSize = br.read(readBuf)) != -1) {
+                                if (resultSize == bufferSize)
                                     sb.append(readBuf);
-                                else{
-                                    for(int i = 0; i< resultSize; i++)
+                                else {
+                                    for (int i = 0; i < resultSize; i++)
                                         sb.append(readBuf[i]);
                                 }
                             }
@@ -187,21 +181,21 @@ public class TabA extends AppCompatActivity {
                             JSONArray jArray = new JSONArray(jsonObject.getString("address"));
                             int addrlen = jArray.length();
                             ArrayList<ListViewItem> alv = new ArrayList<ListViewItem>();
-                            for(int i = 0; i < adapter1.getCount(); i++){
+                            for (int i = 0; i < adapter1.getCount(); i++) {
                                 alv.add(adapter1.getItem(i));
                             }
                             boolean eXist = true;
-                            for(int i = 0; i < alv.size(); i++){
+                            for (int i = 0; i < alv.size(); i++) {
                                 String name = alv.get(i).getText1();
                                 String searchedname = eName.getText().toString();
-                                if(searchedname.equals(name)){
+                                if (searchedname.equals(name)) {
                                     eXist = false;
                                     String phNumber = alv.get(i).getText2();
-                                    Intent myIntent = new Intent (Intent.ACTION_VIEW, Uri.parse("tel:"+phNumber));
+                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + phNumber));
                                     startActivity(myIntent);
                                 }
                             }
-                            if(eXist) {
+                            if (eXist) {
                                 final AlertDialog.Builder result = new AlertDialog.Builder(TabA.this);
                                 result.setTitle("전화번호 검색결과");
                                 result.setMessage("검색결과가 없습니다");
@@ -212,7 +206,7 @@ public class TabA extends AppCompatActivity {
                                 });
                                 result.show();
                             }
-                        } catch(Exception e){
+                        } catch (Exception e) {
 
                         }
                     }
@@ -232,17 +226,16 @@ public class TabA extends AppCompatActivity {
                 File file = new File("file.text");
                 FileWriter fw = null;
                 String text = "TEST";
-                try{
+                try {
                     fw = new FileWriter(file);
                     fw.write(text);
                     Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_LONG).show();
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 if (fw != null) {
                     try {
-                        fw.close() ;
+                        fw.close();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -265,18 +258,18 @@ public class TabA extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         final EditText eName = (EditText) layout.findViewById(R.id.search_name);
                         AssetManager assetManager = getResources().getAssets();
-                        try{
+                        try {
                             AssetManager.AssetInputStream ais = (AssetManager.AssetInputStream) assetManager.open("address.jason");
                             BufferedReader br = new BufferedReader(new InputStreamReader(ais));
                             StringBuilder sb = new StringBuilder();
                             int bufferSize = 1024 * 1024;
                             char readBuf[] = new char[bufferSize];
                             int resultSize = 0;
-                            while((resultSize = br.read(readBuf)) != -1){
-                                if(resultSize == bufferSize)
+                            while ((resultSize = br.read(readBuf)) != -1) {
+                                if (resultSize == bufferSize)
                                     sb.append(readBuf);
-                                else{
-                                    for(int i = 0; i< resultSize; i++)
+                                else {
+                                    for (int i = 0; i < resultSize; i++)
                                         sb.append(readBuf[i]);
                                 }
                             }
@@ -285,28 +278,28 @@ public class TabA extends AppCompatActivity {
                             JSONArray jArray = new JSONArray(jsonObject.getString("address"));
                             int addrlen = jArray.length();
                             ArrayList<ListViewItem> alv = new ArrayList<ListViewItem>();
-                            for(int i = 0; i < adapter1.getCount(); i++){
+                            for (int i = 0; i < adapter1.getCount(); i++) {
                                 alv.add(adapter1.getItem(i));
                             }
                             boolean eXist = true;
-                            for(int i = 0; i < alv.size(); i++){
+                            for (int i = 0; i < alv.size(); i++) {
                                 String name = alv.get(i).getText1();
                                 String searchedname = eName.getText().toString();
-                                if(searchedname.equals(name)){
+                                if (searchedname.equals(name)) {
                                     eXist = false;
                                     String phNumber = alv.get(i).getText2();
                                     final AlertDialog.Builder result = new AlertDialog.Builder(TabA.this);
                                     result.setTitle("전화번호 검색결과");
                                     result.setMessage(phNumber);
-                                    result.setPositiveButton("확인", new DialogInterface.OnClickListener(){
-                                       public void onClick(DialogInterface di, int whichButton){
+                                    result.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface di, int whichButton) {
 
-                                       }
+                                        }
                                     });
                                     result.show();
                                 }
                             }
-                            if(eXist) {
+                            if (eXist) {
                                 final AlertDialog.Builder result = new AlertDialog.Builder(TabA.this);
                                 result.setTitle("전화번호 검색결과");
                                 result.setMessage("검색결과가 없습니다");
@@ -317,7 +310,7 @@ public class TabA extends AppCompatActivity {
                                 });
                                 result.show();
                             }
-                        } catch(Exception e){
+                        } catch (Exception e) {
 
                         }
                     }
@@ -332,35 +325,56 @@ public class TabA extends AppCompatActivity {
         });
     }
 
-    private ArrayList<ListViewItem> getContactList(){
-        Cursor cursor = null;
-        ArrayList<ListViewItem> lvi = new ArrayList<>();
-        try {
-            Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-            String phoneName = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME;
-            String[] ad = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER};
-            cursor = getContentResolver().query(uri, ad, null, null, phoneName);
-            cursor.moveToFirst();
-             do {
-                if (cursor.getString(1) != null) {
-                    ListViewItem lv = new ListViewItem();
-                    lv.setText1(cursor.getString(0));
-                    String str = cursor.getString(1);
-                    String real_str = str.substring(0, 7)+str.charAt(8)+"-"+str.substring(9, 12)+str.charAt(12);
-                    lv.setText2(real_str);
-                    lvi.add(lv);
-                }
-            } while (cursor.moveToNext());
-        } catch(Exception e){
+    final int MY_PERMISSION = 1;
 
-        } finally{
-            if(cursor != null){
-                cursor.close();
-                cursor = null;
+    private ArrayList<ListViewItem> getContactList() {
+        ArrayList<ListViewItem> lvi = new ArrayList<>();
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS}, MY_PERMISSION);
+        } else {
+            Cursor cursor = null;
+
+            try {
+                Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+                String phoneName = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME;
+                String[] ad = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER};
+                cursor = getContentResolver().query(uri, ad, null, null, phoneName);
+                cursor.moveToFirst();
+                do {
+                    if (cursor.getString(1) != null) {
+                        ListViewItem lv = new ListViewItem();
+                        lv.setText1(cursor.getString(0));
+                        String str = cursor.getString(1);
+                        String real_str = str.substring(0, 7) + str.charAt(8) + "-" + str.substring(9, 12) + str.charAt(12);
+                        lv.setText2(real_str);
+                        lvi.add(lv);
+                    }
+                } while (cursor.moveToNext());
+            } catch (Exception e) {
+
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                    cursor = null;
+                }
             }
-            return lvi;
+        }return lvi;
+    }
+
+
+    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults){
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch(requestCode){
+            case MY_PERMISSION:{
+                if (grantResults.length>0&&grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                }else{
+                    Toast.makeText(this,"Contact Permission denied",Toast.LENGTH_SHORT);
+                }
+            }
         }
     }
+
 
     @Override
     public void onBackPressed(){
