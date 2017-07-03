@@ -48,7 +48,7 @@ public class TabB extends AppCompatActivity {
                     Cursor cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection,null, null, null);
                     cursor.moveToFirst();
 
-                    int columnindex = cursor.getColumnIndex(projection[0]);
+                    int columnindex = cursor.getInt(cursor.getColumnIndex(projection[0]));
                     int[] temp = {columnindex};
                     setimgid(temp);
                     cursor.close();
