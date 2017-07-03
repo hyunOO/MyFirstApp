@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name= "android.permission.BLUETOOTH_ADMIN"/>
 
     <application
         android:allowBackup="true"
@@ -23,6 +24,8 @@
         <activity android:name= ".TabB"></activity>
         <activity android:name= ".TabC"></activity>
         <activity android:name= ".Image"></activity>
+        <activity android:name=".AnswerTabC"></activity>
+        <activity android:name=".QuestTabC"></activity>
     </application>
 
 </manifest>

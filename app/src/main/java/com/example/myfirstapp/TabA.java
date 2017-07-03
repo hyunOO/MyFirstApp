@@ -369,7 +369,7 @@ public class TabA extends AppCompatActivity {
                 if (grantResults.length>0&&grantResults[0] == PackageManager.PERMISSION_GRANTED){
 
                 }else{
-                    Toast.makeText(this,"Contact Permission denied",Toast.LENGTH_LONG);
+                    Toast.makeText(this,"Contact Permission denied",Toast.LENGTH_LONG).show();
                 }
             }
         }
