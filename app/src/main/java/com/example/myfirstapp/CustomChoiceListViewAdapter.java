@@ -55,7 +55,7 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
         return position ;
     }
     @Override
-    public Object getItem(int position) {
+    public ListViewItem getItem(int position) {
         return listViewItemList.get(position) ;
     }
 
