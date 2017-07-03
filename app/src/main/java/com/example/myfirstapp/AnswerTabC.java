@@ -48,6 +48,9 @@ public class AnswerTabC extends AppCompatActivity {
         Button btn03 = (Button)findViewById(R.id.submit_dap_to_quest);
         view = (TextView)findViewById(R.id.show_answer);
 
+        Intent newintent = new Intent(getApplicationContext(),AnswerTabC_2.class);
+        newintent.putExtra("answer",answer);
+
         btn03.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +60,10 @@ public class AnswerTabC extends AppCompatActivity {
         });
 
         listenForData();
+        if (view.getText().toString()!=""){
+            startActivity(newintent);
+        }
+
 
     }
 

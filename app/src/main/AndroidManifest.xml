@@ -28,6 +28,7 @@
         <activity android:name=".QuestTabC"></activity>
         <activity android:name=".QuestTabC_2"></activity>
         <activity android:name=".AnswerTabC_0"></activity>
+        <activity android:name=".AnswerTabC_2"></activity>
     </application>
 
 </manifest>
