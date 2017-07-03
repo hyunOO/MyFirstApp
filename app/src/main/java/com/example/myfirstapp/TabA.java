@@ -104,10 +104,10 @@ public class TabA extends AppCompatActivity {
         deleteButton = (Button) findViewById(R.id.delete);
         synchButton = (Button) findViewById(R.id.synchro);
 
-        //ArrayList<ListViewItem> lvi = getContactList();
-        //for(int i = 0; i< lvi.size(); i++){
-          //  adapter1.add(lvi.get(i));
-        //}
+        ArrayList<ListViewItem> lvi = getContactList();
+        for(int i = 0; i< lvi.size(); i++){
+            adapter1.add(lvi.get(i));
+        }
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,13 +185,17 @@ public class TabA extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(jString);
                             JSONArray jArray = new JSONArray(jsonObject.getString("address"));
                             int addrlen = jArray.length();
+                            ArrayList<ListViewItem> alv = new ArrayList<ListViewItem>();
+                            for(int i = 0; i < adapter1.getCount(); i++){
+                                alv.add(adapter1.getItem(i));
+                            }
                             boolean eXist = true;
-                            for(int i = 0; i<addrlen; i++){
-                                String name = jArray.getJSONObject(i).getString("name").toString();
+                            for(int i = 0; i < alv.size(); i++){
+                                String name = alv.get(i).getText1();
                                 String searchedname = eName.getText().toString();
                                 if(searchedname.equals(name)){
                                     eXist = false;
-                                    String phNumber = jArray.getJSONObject(i).getString("phNumber").toString();
+                                    String phNumber = alv.get(i).getText2();
                                     Intent myIntent = new Intent (Intent.ACTION_VIEW, Uri.parse("tel:"+phNumber));
                                     startActivity(myIntent);
                                 }
@@ -279,13 +283,17 @@ public class TabA extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(jString);
                             JSONArray jArray = new JSONArray(jsonObject.getString("address"));
                             int addrlen = jArray.length();
+                            ArrayList<ListViewItem> alv = new ArrayList<ListViewItem>();
+                            for(int i = 0; i < adapter1.getCount(); i++){
+                                alv.add(adapter1.getItem(i));
+                            }
                             boolean eXist = true;
-                            for(int i = 0; i<addrlen; i++){
-                                String name = jArray.getJSONObject(i).getString("name").toString();
+                            for(int i = 0; i < alv.size(); i++){
+                                String name = alv.get(i).getText1();
                                 String searchedname = eName.getText().toString();
                                 if(searchedname.equals(name)){
                                     eXist = false;
-                                    String phNumber = jArray.getJSONObject(i).getString("phNumber").toString();
+                                    String phNumber = alv.get(i).getText2();
                                     final AlertDialog.Builder result = new AlertDialog.Builder(TabA.this);
                                     result.setTitle("전화번호 검색결과");
                                     result.setMessage(phNumber);
@@ -336,7 +344,9 @@ public class TabA extends AppCompatActivity {
                 if (cursor.getString(1) != null) {
                     ListViewItem lv = new ListViewItem();
                     lv.setText1(cursor.getString(0));
-                    lv.setText2(cursor.getString(1));
+                    String str = cursor.getString(1);
+                    String real_str = str.substring(0, 7)+str.charAt(8)+"-"+str.substring(9, 12)+str.charAt(12);
+                    lv.setText2(real_str);
                     lvi.add(lv);
                 }
             } while (cursor.moveToNext());
