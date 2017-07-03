@@ -22,6 +22,7 @@
         <activity android:name= ".TabA"></activity>
         <activity android:name= ".TabB"></activity>
         <activity android:name= ".TabC"></activity>
+        <activity android:name= ".Image"></activity>
     </application>
 
 </manifest>
