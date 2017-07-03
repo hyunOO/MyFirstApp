@@ -26,15 +26,13 @@
             android:id="@+id/submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="제출"
-            android:weight="1" />
+            android:text="제출"/>
 
         <Button
             android:id="@+id/pass_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="패스"
-            android:weight="1" />
+            android:text="패스" />
 
     </LinearLayout>
 
