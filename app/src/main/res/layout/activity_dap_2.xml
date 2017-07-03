@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NewText"
+            android:textSize="15sp"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/after_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="번째 질문입니다."/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/insert_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="질문을 입력하세요."/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/question_to_quest"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/submit_dap_to_quest"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="질문제출"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/below_is_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="출제자가 입력한 답입니다."/>
+
+    <TextView
+        android:id="@+id/show_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NewText"/>
+
+
+</LinearLayout>
