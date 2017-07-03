@@ -68,6 +68,7 @@ public class TabA extends AppCompatActivity {
         listView.setAdapter(adapter1);
 
         AssetManager assetManager = getResources().getAssets();
+
         try{
             AssetManager.AssetInputStream ais = (AssetManager.AssetInputStream) assetManager.open("address.jason");
             BufferedReader br = new BufferedReader(new InputStreamReader(ais));

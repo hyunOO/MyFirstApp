@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class TabB extends AppCompatActivity {
     final int[] imgid = {R.drawable.img1, R.drawable.img2, R.drawable.img3,R.drawable.img4, R.drawable.img5,R.drawable.img6, R.drawable.img7, R.drawable.img8};
@@ -22,6 +23,7 @@ public class TabB extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_b);
+
 
         //from here, there is a runtime permission problem.
        /* String[] projection = {MediaStore.Images.Media.DATA};
@@ -48,6 +50,7 @@ public class TabB extends AppCompatActivity {
 
         }
     };
+
 }
 
  class GalleryAdapter extends BaseAdapter{
