@@ -6,15 +6,22 @@ package com.example.myfirstapp;
 
 public class ListViewItem {
     private String text1, text2;
+    private boolean check;
 
     public void setText1(String text1){ this.text1 = text1;}
     public void setText2(String text2){
         this.text2 = text2;
+    }
+    public void setCheck(boolean a){
+        check = a;
     }
     public String getText1(){
         return this.text1;
     }
     public String getText2(){
         return this.text2;
+    }
+    public boolean getChecked(){
+        return this.check;
     }
 }

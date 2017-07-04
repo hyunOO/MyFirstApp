@@ -4,15 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.CheckBox;
 import android.widget.Checkable;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 /**
- * Created by q on 2017-07-01.
+ * Created by q on 2017-07-04.
  */
 
-public class CheckableLinearLayout extends LinearLayout implements Checkable {
-
-    public CheckableLinearLayout(Context context, AttributeSet attrs){
+public class CheckableLayout extends RelativeLayout implements Checkable {
+    public CheckableLayout(Context context, AttributeSet attrs){
         super(context, attrs);
     }
     @Override
@@ -32,7 +31,5 @@ public class CheckableLinearLayout extends LinearLayout implements Checkable {
         if (cb.isChecked() != checked) {
             cb.setChecked(checked) ;
         }
-
     }
-
 }

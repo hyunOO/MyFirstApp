@@ -146,99 +146,58 @@ public class TabA extends AppCompatActivity {
             }
         });
 
+        //modify버튼은 전화걸기 버튼으로 변경되었다.
         modifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context mContext = getApplicationContext();
-                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-                final View layout = inflater.inflate(calling_dialog, null);
+                int check = listView.getCheckedItemPosition();
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(TabA.this);
-                alert.setTitle("전화걸기");
-                alert.setView(layout);
-
-                alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        final EditText eName = (EditText) layout.findViewById(R.id.calling_name);
-                        AssetManager assetManager = getResources().getAssets();
-                        try {
-                            AssetManager.AssetInputStream ais = (AssetManager.AssetInputStream) assetManager.open("address.jason");
-                            BufferedReader br = new BufferedReader(new InputStreamReader(ais));
-                            StringBuilder sb = new StringBuilder();
-                            int bufferSize = 1024 * 1024;
-                            char readBuf[] = new char[bufferSize];
-                            int resultSize = 0;
-                            while ((resultSize = br.read(readBuf)) != -1) {
-                                if (resultSize == bufferSize)
-                                    sb.append(readBuf);
-                                else {
-                                    for (int i = 0; i < resultSize; i++)
-                                        sb.append(readBuf[i]);
-                                }
-                            }
-                            String jString = sb.toString();
-                            JSONObject jsonObject = new JSONObject(jString);
-                            JSONArray jArray = new JSONArray(jsonObject.getString("address"));
-                            int addrlen = jArray.length();
-                            ArrayList<ListViewItem> alv = new ArrayList<ListViewItem>();
-                            for (int i = 0; i < adapter1.getCount(); i++) {
-                                alv.add(adapter1.getItem(i));
-                            }
-                            boolean eXist = true;
-                            for (int i = 0; i < alv.size(); i++) {
-                                String name = alv.get(i).getText1();
-                                String searchedname = eName.getText().toString();
-                                if (searchedname.equals(name)) {
-                                    eXist = false;
-                                    String phNumber = alv.get(i).getText2();
-                                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + phNumber));
-                                    startActivity(myIntent);
-                                }
-                            }
-                            if (eXist) {
-                                final AlertDialog.Builder result = new AlertDialog.Builder(TabA.this);
-                                result.setTitle("전화번호 검색결과");
-                                result.setMessage("검색결과가 없습니다");
-                                result.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface di, int whichButton) {
-
-                                    }
-                                });
-                                result.show();
-                            }
-                        } catch (Exception e) {
-
+                AssetManager assetManager = getResources().getAssets();
+                try {
+                    AssetManager.AssetInputStream ais = (AssetManager.AssetInputStream) assetManager.open("address.jason");
+                    BufferedReader br = new BufferedReader(new InputStreamReader(ais));
+                    StringBuilder sb = new StringBuilder();
+                    int bufferSize = 1024 * 1024;
+                    char readBuf[] = new char[bufferSize];
+                    int resultSize = 0;
+                    while ((resultSize = br.read(readBuf)) != -1) {
+                        if (resultSize == bufferSize)
+                            sb.append(readBuf);
+                        else {
+                            for (int i = 0; i < resultSize; i++)
+                                sb.append(readBuf[i]);
                         }
                     }
-                });
-                alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                    String jString = sb.toString();
+                    JSONObject jsonObject = new JSONObject(jString);
+                    JSONArray jArray = new JSONArray(jsonObject.getString("address"));
+                    int addrlen = jArray.length();
+                    ArrayList<ListViewItem> alv = new ArrayList<ListViewItem>();
+                    for (int i = 0; i < adapter1.getCount(); i++) {
+                        alv.add(adapter1.getItem(i));
                     }
-                });
-                alert.show();
+                    String name = alv.get(check).getText1();
+                    String phNumber = alv.get(check).getText2();
+                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + phNumber));
+                    startActivity(myIntent);
+
+                } catch (Exception e) {
+
+                }
             }
         });
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File file = new File("file.text");
-                FileWriter fw = null;
-                String text = "TEST";
-                try {
-                    fw = new FileWriter(file);
-                    fw.write(text);
-                    Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (fw != null) {
-                    try {
-                        fw.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                int checked_item = listView.getCheckedItemPosition();
+                int memory = adapter1.getCount();
+                if(checked_item>=memory){
+                    Toast.makeText(getApplicationContext(),"삭제할 항목을 선택해주세요.",Toast.LENGTH_SHORT).show();
+                }else if (checked_item!=-1){
+                    adapter1.deleteItem(checked_item);
+                }else{
+                    Toast.makeText(getApplicationContext(),"삭제할 항목을 선택해주세요.",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -369,7 +328,7 @@ public class TabA extends AppCompatActivity {
                 if (grantResults.length>0&&grantResults[0] == PackageManager.PERMISSION_GRANTED){
 
                 }else{
-                    Toast.makeText(this,"Contact Permission denied",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Contact Permission denied",Toast.LENGTH_LONG).show();
                 }
             }
         }
