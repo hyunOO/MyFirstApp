@@ -151,38 +151,41 @@ public class TabA extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int check = listView.getCheckedItemPosition();
+                if (check!= -1){
 
-                AssetManager assetManager = getResources().getAssets();
-                try {
-                    AssetManager.AssetInputStream ais = (AssetManager.AssetInputStream) assetManager.open("address.jason");
-                    BufferedReader br = new BufferedReader(new InputStreamReader(ais));
-                    StringBuilder sb = new StringBuilder();
-                    int bufferSize = 1024 * 1024;
-                    char readBuf[] = new char[bufferSize];
-                    int resultSize = 0;
-                    while ((resultSize = br.read(readBuf)) != -1) {
-                        if (resultSize == bufferSize)
-                            sb.append(readBuf);
-                        else {
-                            for (int i = 0; i < resultSize; i++)
-                                sb.append(readBuf[i]);
+                    AssetManager assetManager = getResources().getAssets();
+                    try {
+                        AssetManager.AssetInputStream ais = (AssetManager.AssetInputStream) assetManager.open("address.jason");
+                        BufferedReader br = new BufferedReader(new InputStreamReader(ais));
+                        StringBuilder sb = new StringBuilder();
+                        int bufferSize = 1024 * 1024;
+                        char readBuf[] = new char[bufferSize];
+                        int resultSize = 0;
+                        while ((resultSize = br.read(readBuf)) != -1) {
+                            if (resultSize == bufferSize)
+                                sb.append(readBuf);
+                            else {
+                                for (int i = 0; i < resultSize; i++)
+                                    sb.append(readBuf[i]);
+                            }
                         }
-                    }
-                    String jString = sb.toString();
-                    JSONObject jsonObject = new JSONObject(jString);
-                    JSONArray jArray = new JSONArray(jsonObject.getString("address"));
-                    int addrlen = jArray.length();
-                    ArrayList<ListViewItem> alv = new ArrayList<ListViewItem>();
-                    for (int i = 0; i < adapter1.getCount(); i++) {
-                        alv.add(adapter1.getItem(i));
-                    }
-                    String name = alv.get(check).getText1();
-                    String phNumber = alv.get(check).getText2();
-                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + phNumber));
-                    startActivity(myIntent);
+                        String jString = sb.toString();
+                        JSONObject jsonObject = new JSONObject(jString);
+                        JSONArray jArray = new JSONArray(jsonObject.getString("address"));
+                        int addrlen = jArray.length();
+                        ArrayList<ListViewItem> alv = new ArrayList<ListViewItem>();
+                        for (int i = 0; i < adapter1.getCount(); i++) {
+                            alv.add(adapter1.getItem(i));
+                        }
+                        String name = alv.get(check).getText1();
+                        String phNumber = alv.get(check).getText2();
+                        Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + phNumber));
+                        startActivity(myIntent);
 
-                } catch (Exception e) {
+                    } catch (Exception e) {
 
+                }}else{
+                    Toast.makeText(getApplicationContext(),"항목을 선택해주세요.",Toast.LENGTH_SHORT).show();
                 }
             }
         });
