@@ -27,5 +27,12 @@ public class Image extends Activity {
 
         Intent intent = getIntent();
         iv.setImageResource(intent.getIntExtra("img", 0));
-        show_name.setText(intent.getStringExtra("name"));
+
+
+        btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                finish();
+            }
+        });
     }}
