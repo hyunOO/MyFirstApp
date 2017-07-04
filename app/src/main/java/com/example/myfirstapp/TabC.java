@@ -88,18 +88,10 @@ public class TabC extends AppCompatActivity {
             Intent past = getIntent();
             final String answer = past.getExtras().getString("answer");
 
-            Button pass = (Button)findViewById(R.id.pass_button);
             Button submit = (Button)findViewById(R.id.submit_button);
             final EditText box = (EditText)findViewById(R.id.submit_possible_dap);
             final Intent again_intent = new Intent(getApplicationContext(),AnswerTabC.class);
             again_intent.putExtra("answer",answer);
-
-            pass.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    startActivity(again_intent);
-                }
-            });
 
             submit.setOnClickListener(new View.OnClickListener(){
                 @Override

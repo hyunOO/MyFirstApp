@@ -2,123 +2,90 @@ package com.example.myfirstapp;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.math.BigInteger;
+import java.util.Set;
+import java.util.UUID;
 
-/**
- * Created by q on 2017-07-03.
- */
+/*
+    문제를 내는 사람에 대한 클래스
+    문제를 내는 사람이 서버의 역할을 하게된다.
+    받은 질문에 대한 답을 한다.
+*/
 
-public class QuestTabC2 extends AppCompatActivity{
 
-    BluetoothAdapter adapter;
-    BluetoothDevice device;
-    BluetoothSocket socket = null;
-    OutputStream output = null;
-    InputStream input = null;
-
-    Thread thd = null;
-
-    TextView ques_text;
-
-    int ban_number = 0;
-    int ban_limit = 3;
-
-    byte[] buffer;
-    int buf_position;
+public class QuestTabC2 extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_que_2);
+
         Intent intent = getIntent();
-        final String answer = intent.getExtras().getString("answer");
+        final String hi_ans = intent.getStringExtra("ANSWER");
+        final String quest = intent.getStringExtra("QUESTION");
+        //TextView txt = (TextView) findViewById(R.id.textView7);
+       // txt.setText(quest);
+        //final String count = intent.getStringExtra("COUNT");
+       // TextView txv = (TextView) findViewById(R.id.count_hi);
+        //txv.setText(Integer.parseInt(count));
 
-        final Button ban_button = (Button)findViewById(R.id.ban);
-        Button insert_button = (Button)findViewById(R.id.button3);
-        ques_text = (TextView)findViewById(R.id.textView7);
-        final EditText ans_text = (EditText)findViewById(R.id.textView4);
+        final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+        BluetoothDevice target_device = null;
 
-        insert_button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                sendData(ans_text.getText().toString());
-                ans_text.setText("");
+        if (pairedDevices.size() != 1) {
 
+        } else {
+            for (BluetoothDevice device : pairedDevices) {
+                target_device = device;
             }
-        });
-        listenForData();
-        ban_button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                if (ban_number<ban_limit) {
-                    ban_number += 1;
-                    Toast.makeText(getApplicationContext(), "You banned " + ban_number + " questions.\nYou can ban " + ban_limit + " more questions.", Toast.LENGTH_LONG).show();
-                    ques_text.setText("");
-                }else{
-                    Toast.makeText(getApplicationContext(),"You can't ban questions.",Toast.LENGTH_LONG).show();
-                }
+            try {
+                String s = "FFFFFFFF-C917-212C-D958-11A94F3D97CA";
+                String s2 = s.replace("-", "");
+                UUID uuid = new UUID(new BigInteger(s2.substring(0, 16), 16).longValue(), new BigInteger(s2.substring(16), 16).longValue());
+                final BluetoothServerSocket serverSocket = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("", uuid);
+
+                    final BluetoothSocket socket = serverSocket.accept();
+                    final ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+
+                    Button btn01 = (Button)findViewById(R.id.button36879);
+
+                    btn01.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            TextView txv = (TextView) findViewById(R.id.textView4567);
+                            String str = txv.getText().toString();
+                            try{
+                                outputStream.writeObject(str);
+                                outputStream.flush();
+                                Intent intent = new Intent (getApplicationContext(), QuestTabC3.class);
+                                intent.putExtra("QUEST", quest);
+                                intent.putExtra("ANSWER", hi_ans);
+                                //intent.putExtra("COUNT", Integer.parseInt(count));
+                                socket.close();
+                                startActivity(intent);
+                            }
+                            catch(Exception e) {}
+                        }
+                    });
+            } catch (IOException e) {
             }
-        });
-    }
-    public void sendData(String  msg){
-        msg +="\n";
-        try{
-            output.write(msg.getBytes());
-        }catch(Exception e){
-            Toast.makeText(getApplicationContext(),"Bluetooth connection failed.",Toast.LENGTH_LONG).show();
-            finish();
         }
     }
-    public void listenForData(){
-        final Handler handler = new Handler();
-        buf_position=0;
-        buffer= new byte[1024];
-
-        thd = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(!Thread.currentThread().isInterrupted()){
-                    try{
-                        int byteAvailable = input.available(); //input.available은 다른 쓰레드에서 blocking 하기 전까지 읽을 수 있는 문자열 개수
-                        if (byteAvailable>0){
-                            byte[] packet = new byte[byteAvailable];
-                            input.read(packet);
-                            for (int i =0; i<byteAvailable; i++){
-                                byte b = packet[i];
-                                if (b =='\n'){
-                                    byte[] encodedBytes = new byte[buf_position];
-                                    System.arraycopy(buffer,0, encodedBytes,0,encodedBytes.length);
-                                    final String data = new String(encodedBytes, "US-ASCII");
-                                    buf_position= 0;
-                                    handler.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            ques_text.setText(data+"\n");
-                                        }
-                                    });
-                                }else{
-                                    buffer[buf_position++]=b;
-                                }
-                            }
-                        }
-                    }catch(Exception e){
-                        Toast.makeText(getApplicationContext(),"데이터 수신 중 오류가 발생했습니다.", Toast.LENGTH_LONG).show();
-                        finish();
-                    }
-                }
-            }
-        });
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
     }
 }

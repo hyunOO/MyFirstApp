@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myfirstapp">
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name= "android.permission.BLUETOOTH_ADMIN"/>
 
@@ -28,9 +29,12 @@
         <activity android:name=".QuestTabC"></activity>
         <activity android:name=".AnswerTabC1"></activity>
         <activity android:name=".QuestTabC1"></activity>
-        <activity android:name=".AnswerTabC2"></activity>
-        <activity android:name=".AnswerTabC3"></activity>
         <activity android:name=".QuestTabC2"></activity>
+        <activity android:name=".AnswerTabC2"></activity>
+        <activity android:name=".QuestTabC3"></activity>
+        <activity android:name=".AnswerTabC3"></activity>
+        <activity android:name=".AnswerTabCAnswer"></activity>
+        <activity android:name=".QuestTabCAnswer"></activity>
     </application>
 
 </manifest>

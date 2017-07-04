@@ -6,19 +6,23 @@ import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Set;
 import java.util.UUID;
+import java.util.jar.Attributes;
 
 /*
     문제를 내는 사람에 대한 클래스
@@ -26,7 +30,6 @@ import java.util.UUID;
 */
 
 public class QuestTabC extends AppCompatActivity {
-    OutputStream output = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +46,11 @@ public class QuestTabC extends AppCompatActivity {
             for (BluetoothDevice device : pairedDevices) {
                 target_device = device;
             }
-            BluetoothServerSocket serverSocket = null;
             try {
                 String s = "0f14d0ab-9605-4a62-a9e4-5ed26688389b";
                 String s2 = s.replace("-", "");
                 UUID uuid = new UUID(new BigInteger(s2.substring(0, 16), 16).longValue(), new BigInteger(s2.substring(16), 16).longValue());
-                serverSocket = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("", uuid);
-            } catch (IOException e) {
-            }
-
-            try {
+                final BluetoothServerSocket serverSocket = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("", uuid);
                 final BluetoothSocket socket = serverSocket.accept();
                 final ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 
@@ -65,30 +63,21 @@ public class QuestTabC extends AppCompatActivity {
                         try {
                             outputStream.writeObject(str);
                             outputStream.flush();
-                            Data data = new Data();
-                            data.setData(socket);
                             Intent myIntent = new Intent(getApplicationContext(), QuestTabC1.class);
-                            myIntent.putExtra("OBJECT", data);
-                            //sendData(edt.getText().toString());
-                            myIntent.putExtra("answer",edt.getText().toString());
+                            myIntent.putExtra("ANSWER", (String) str);
+                            //String count = "1";
+                            //myIntent.putExtra("COUNT", count);
+                            socket.close();
+                            serverSocket.close();
                             startActivity(myIntent);
                         } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), ""+e, Toast.LENGTH_LONG).show();
                         }
                     }
                 }));
-            } catch (Exception e) {
+            } catch (IOException e) {
             }
         }
-    }
-    public void sendData(String  msg){
-        msg +="\n";
-        try{
-            output.write(msg.getBytes());
-        }catch(Exception e){
-            Toast.makeText(getApplicationContext(),"Bluetooth connection failed.",Toast.LENGTH_LONG).show();
-            finish();
-        }
+
     }
 
     @Override
