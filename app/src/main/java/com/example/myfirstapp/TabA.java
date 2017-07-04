@@ -190,22 +190,14 @@ public class TabA extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File file = new File("file.text");
-                FileWriter fw = null;
-                String text = "TEST";
-                try {
-                    fw = new FileWriter(file);
-                    fw.write(text);
-                    Toast.makeText(getApplicationContext(), "Hi", Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (fw != null) {
-                    try {
-                        fw.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                int checked_item = listView.getCheckedItemPosition();
+                int memory = adapter1.getCount();
+                if(checked_item>=memory){
+                    Toast.makeText(getApplicationContext(),"삭제할 항목을 선택해주세요.",Toast.LENGTH_SHORT).show();
+                }else if (checked_item!=-1){
+                    adapter1.deleteItem(checked_item);
+                }else{
+                    Toast.makeText(getApplicationContext(),"삭제할 항목을 선택해주세요.",Toast.LENGTH_SHORT).show();
                 }
             }
         });
