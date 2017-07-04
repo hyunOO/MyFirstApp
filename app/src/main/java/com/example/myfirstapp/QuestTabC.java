@@ -72,8 +72,6 @@ public class QuestTabC extends AppCompatActivity {
                             sendData(edt.getText().toString());
                             myIntent.putExtra("answer",edt.getText().toString());
                             startActivity(myIntent);
-
-                            startActivity(myIntent);
                         } catch (Exception e) {
                             Toast.makeText(getApplicationContext(), ""+e, Toast.LENGTH_LONG).show();
                         }
