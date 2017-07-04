@@ -69,6 +69,7 @@ public class AnswerTabC1 extends AppCompatActivity {
                     public void onClick(View v) {
                         EditText edt = (EditText) findViewById(R.id.question_to_quest);
                         final Object str = edt.getText().toString();
+                        /*
                         try {
 
                             Thread thread1 = new Thread(new Runnable() {
@@ -92,8 +93,9 @@ public class AnswerTabC1 extends AppCompatActivity {
                             thread1.run();
                         }
                         catch(Exception e) { }
+                        */
 
-/*
+
                         try {
                             outputStream.writeObject(str);
                             outputStream.flush();
@@ -116,7 +118,6 @@ public class AnswerTabC1 extends AppCompatActivity {
                             startActivity(myIntent);
                         } catch (Exception e) {
                         }
-                        */
                     }
                 }));
             } catch (IOException e) {

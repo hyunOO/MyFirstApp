@@ -67,7 +67,7 @@ public class QuestTabC2 extends AppCompatActivity {
                         public void onClick(View v) {
                             TextView txv = (TextView) findViewById(R.id.textView4567);
                             final String str = txv.getText().toString();
-
+/*
                             try {
                                 Thread thread1 = new Thread(new Runnable() {
                                     public void run() {
@@ -88,7 +88,8 @@ public class QuestTabC2 extends AppCompatActivity {
                                 thread1.run();
                             }
                             catch(Exception e){ }
-/*
+                            */
+
                             try{
                                 outputStream.writeObject(str);
                                 outputStream.flush();
@@ -106,7 +107,7 @@ public class QuestTabC2 extends AppCompatActivity {
                                 thread1.run();
                             }
                             catch(Exception e) {}
-                            */
+
 
                         }
                     });
