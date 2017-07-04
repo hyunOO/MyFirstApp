@@ -53,6 +53,11 @@ public class QuestTabC3  extends AppCompatActivity {
                 Thread thread1 = new Thread(new Runnable() {
                     public void run() {
                         try{
+
+                            if(mBluetoothAdapter.isDiscovering()){
+                                mBluetoothAdapter.cancelDiscovery();
+                            }
+
                             clientSocket.connect();
                             ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
                             String obj = (String) ois.readObject();

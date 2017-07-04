@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="답을 아시겠습니까?"
+        android:text="답을 아시겠습니까? 예상하는 답을 입력하세요."
         android:textSize="20sp" />
 
     <EditText

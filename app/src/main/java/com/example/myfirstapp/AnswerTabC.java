@@ -53,12 +53,18 @@ public class AnswerTabC extends AppCompatActivity {
                 Thread thread1 = new Thread(new Runnable() {
                     public void run() {
                         try {
+
+                            if(mBluetoothAdapter.isDiscovering()){
+                                mBluetoothAdapter.cancelDiscovery();
+                            }
+
                             clientSocket.connect();
                             ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
                             Object obj = inputStream.readObject();
                             Intent myIntent = new Intent(getApplicationContext(), AnswerTabC1.class);
                             myIntent.putExtra("ANSWER", (String) obj);
                             myIntent.putExtra("COUNT", 1);
+                            inputStream.close();
                             clientSocket.close();
                             startActivity(myIntent);
                         } catch (Exception e) {

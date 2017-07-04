@@ -96,6 +96,9 @@ public class AnswerTabC3  extends AppCompatActivity {
                                     final Intent myIntent = new Intent(getApplicationContext(), AnswerTabC1.class);
                                     myIntent.putExtra("ANSWER", str_ans);
                                     myIntent.putExtra("COUNT", get_count+1);
+                                    outputStream.close();
+                                    serverSocket.close();
+                                    socket.close();
                                     startActivity(myIntent);
                                 }
                             } catch (Exception e) {
