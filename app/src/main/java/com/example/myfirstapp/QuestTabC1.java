@@ -35,7 +35,7 @@ public class QuestTabC1 extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String answer =intent.getStringExtra("ANSWER");
-        //final String count = intent.getStringExtra("COUNT");
+        final int get_count = intent.getIntExtra("COUNT", 0);
 
         final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
@@ -62,7 +62,7 @@ public class QuestTabC1 extends AppCompatActivity {
                             Intent myIntent = new Intent(getApplicationContext(), QuestTabC2.class);
                             myIntent.putExtra("ANSWER", answer);
                             myIntent.putExtra("QUESTION", (String) obj);
-                            //myIntent.putExtra("COUNT", Integer.parseInt(count));
+                            myIntent.putExtra("COUNT", get_count);
                             clientSocket.close();
                             startActivity(myIntent);
                         }

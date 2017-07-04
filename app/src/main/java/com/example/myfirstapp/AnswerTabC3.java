@@ -38,12 +38,18 @@ public class AnswerTabC3  extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String str_ans = intent.getStringExtra("ANSWER");
-        final String quest = intent.getStringExtra("QUEST");
-        final String ans_pro = intent.getStringExtra("ANSWER");
-        //final String count = intent.getStringExtra("COUNT");
+        final String quest = intent.getStringExtra("ANSWERFORQUEST");
+        final String ans_pro = intent.getStringExtra("ANSWERHI");
+        final int get_count = intent.getIntExtra("COUNT", 0);
 
-        //TextView txt = (TextView) findViewById(R.id.count_hello);
-        //txt.setText(Integer.parseInt(count));
+        TextView txt_hi = (TextView) findViewById(R.id.question_to_quest);
+        txt_hi.setText(quest);
+
+        TextView txt_hello = (TextView) findViewById(R.id.show_answer);
+        txt_hello.setText(ans_pro);
+
+        TextView txt = (TextView) findViewById(R.id.count_hello);
+        txt.setText(""+get_count);
 
         final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
@@ -85,7 +91,7 @@ public class AnswerTabC3  extends AppCompatActivity {
                                 else{
                                     Intent myIntent = new Intent(getApplicationContext(), AnswerTabC1.class);
                                     myIntent.putExtra("ANSWER", str_ans);
-                                    //myIntent.putExtra("COUNT", Integer.parseInt(count)+1);
+                                    myIntent.putExtra("COUNT", get_count+1);
                                     startActivity(myIntent);
                                 }
                             } catch (Exception e) {

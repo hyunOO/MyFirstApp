@@ -32,7 +32,8 @@ public class AnswerTabC2 extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String str_ans = intent.getStringExtra("ANSWER");
-       // final String count = intent.getStringExtra("COUNT");
+        final String quest = intent.getStringExtra("ANSWERFORQUEST");
+        final int get_count = intent.getIntExtra("COUNT", 0);
 
         final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
@@ -57,9 +58,10 @@ public class AnswerTabC2 extends AppCompatActivity {
                             ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
                             Object obj = inputStream.readObject();
                             Intent myIntent = new Intent(getApplicationContext(), AnswerTabC3.class);
-                            myIntent.putExtra("ANSWERFORQUEST", (String) obj);
+                            myIntent.putExtra("ANSWERFORQUEST", quest);
                             myIntent.putExtra("ANSWER", str_ans);
-                            //myIntent.putExtra("COUNT", count);
+                            myIntent.putExtra("COUNT", get_count);
+                            myIntent.putExtra("ANSWERHI", (String) obj);
                             clientSocket.close();
                             startActivity(myIntent);
                         } catch (Exception e) {

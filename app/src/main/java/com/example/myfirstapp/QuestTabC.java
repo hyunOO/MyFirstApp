@@ -65,8 +65,7 @@ public class QuestTabC extends AppCompatActivity {
                             outputStream.flush();
                             Intent myIntent = new Intent(getApplicationContext(), QuestTabC1.class);
                             myIntent.putExtra("ANSWER", (String) str);
-                            //String count = "1";
-                            //myIntent.putExtra("COUNT", count);
+                            myIntent.putExtra("COUNT", 1);
                             socket.close();
                             serverSocket.close();
                             startActivity(myIntent);

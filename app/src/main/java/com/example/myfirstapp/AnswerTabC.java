@@ -57,8 +57,7 @@ public class AnswerTabC extends AppCompatActivity {
                             Object obj = inputStream.readObject();
                             Intent myIntent = new Intent(getApplicationContext(), AnswerTabC1.class);
                             myIntent.putExtra("ANSWER", (String) obj);
-                            //String count = "1";
-                           // myIntent.putExtra("COUNT", count);
+                           myIntent.putExtra("COUNT", 1);
                             clientSocket.close();
                             startActivity(myIntent);
                         } catch (Exception e) {
