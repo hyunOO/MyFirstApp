@@ -21,7 +21,7 @@ public class Image extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
 
-        ImageView iv = (ImageView) findViewById(R.id.imageView3);
+        TouchImageView iv = (TouchImageView) findViewById(R.id.imageView3);
         TextView show_name = (TextView) findViewById(R.id.textView9);
         Button btn = (Button) findViewById(R.id.button);
 
