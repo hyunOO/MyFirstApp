@@ -69,7 +69,7 @@ public class QuestTabC extends AppCompatActivity {
                             data.setData(socket);
                             Intent myIntent = new Intent(getApplicationContext(), QuestTabC1.class);
                             myIntent.putExtra("OBJECT", data);
-                            sendData(edt.getText().toString());
+                            //sendData(edt.getText().toString());
                             myIntent.putExtra("answer",edt.getText().toString());
                             startActivity(myIntent);
                         } catch (Exception e) {
