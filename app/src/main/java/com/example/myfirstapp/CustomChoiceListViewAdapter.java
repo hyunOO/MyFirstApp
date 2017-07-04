@@ -35,12 +35,6 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
         return listViewItemList.size();
     }
 
-    public void setChecked(int position){
-        ListViewItem item = getItem(position);
-        boolean original = item.getChecked();
-        item.setCheck(!original);
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         final Context context = parent.getContext();
@@ -84,12 +78,10 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
         listViewItemList.add(data);
         notifyDataSetChanged();
     }
-
-
-
-    /*public void deleteItem(int checked){
+    public void deleteItem(int checked){
         ListViewItem item = listViewItemList.get(checked);
         listViewItemList.remove(checked);
+        notifyDataSetChanged();
     }
 
     public void delete(ListViewItem data){
@@ -100,5 +92,5 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
     public void delete(int index){
         listViewItemList.remove(index);
         notifyDataSetChanged();
-    }*/
+    }
 }

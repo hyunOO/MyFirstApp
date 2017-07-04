@@ -31,6 +31,5 @@ public class CheckableLayout extends RelativeLayout implements Checkable {
         if (cb.isChecked() != checked) {
             cb.setChecked(checked) ;
         }
-
     }
 }
