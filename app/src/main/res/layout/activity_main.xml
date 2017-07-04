@@ -12,26 +12,26 @@
         android:id="@+id/button01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PhoneNumber"
-        tools:layout_editor_absoluteY="100dp"
-        tools:layout_editor_absoluteX="100dp"
-        android:layout_marginTop="92dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="92dp"
+        android:text="PhoneNumber"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="100dp" />
 
     <Button
         android:id="@+id/button02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Image"
-        tools:layout_editor_absoluteY="198dp"
-        tools:layout_editor_absoluteX="186dp"
-        android:layout_marginTop="64dp"
-        android:layout_below="@+id/button01"
+        android:layout_alignEnd="@+id/button01"
         android:layout_alignLeft="@+id/button01"
-        android:layout_alignStart="@+id/button01"
         android:layout_alignRight="@+id/button01"
-        android:layout_alignEnd="@+id/button01" />
+        android:layout_alignStart="@+id/button01"
+        android:layout_below="@+id/button01"
+        android:layout_marginTop="64dp"
+        android:text="Image"
+        tools:layout_editor_absoluteX="186dp"
+        tools:layout_editor_absoluteY="198dp" />
 
     <Button
         android:id="@+id/button03"

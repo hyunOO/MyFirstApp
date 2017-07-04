@@ -7,9 +7,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import com.example.myfirstapp.CheckableLayout;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +25,7 @@ import java.util.List;
 
 public class CustomChoiceListViewAdapter extends BaseAdapter {
 
-    private ArrayList <ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
+    private ArrayList <ListViewItem> listViewItemList= new ArrayList<ListViewItem>();
 
     public CustomChoiceListViewAdapter(){
     }
@@ -30,15 +35,24 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
         return listViewItemList.size();
     }
 
+    public void setChecked(int position){
+        ListViewItem item = getItem(position);
+        boolean original = item.getChecked();
+        item.setCheck(!original);
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-
         final Context context = parent.getContext();
+
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.custom_listview, parent, false);
         }
         ListViewItem lv = listViewItemList.get(position);
+        CheckBox cb_check = (CheckBox)convertView.findViewById(R.id.check_box);
+        cb_check.setChecked(((ListView)parent).isItemChecked(position));
+
         if(lv != null){
             TextView textTextView1 = (TextView) convertView.findViewById(R.id.textView1) ;
             TextView textTextView2 = (TextView) convertView.findViewById(R.id.textView2) ;
@@ -71,7 +85,9 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void deleteItem(int checked){
+
+
+    /*public void deleteItem(int checked){
         ListViewItem item = listViewItemList.get(checked);
         listViewItemList.remove(checked);
     }
@@ -84,5 +100,5 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
     public void delete(int index){
         listViewItemList.remove(index);
         notifyDataSetChanged();
-    }
+    }*/
 }

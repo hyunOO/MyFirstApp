@@ -6,23 +6,19 @@ import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Set;
 import java.util.UUID;
-import java.util.jar.Attributes;
 
 /*
     문제를 내는 사람에 대한 클래스
@@ -30,6 +26,7 @@ import java.util.jar.Attributes;
 */
 
 public class QuestTabC extends AppCompatActivity {
+    OutputStream output = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +69,8 @@ public class QuestTabC extends AppCompatActivity {
                             data.setData(socket);
                             Intent myIntent = new Intent(getApplicationContext(), QuestTabC1.class);
                             myIntent.putExtra("OBJECT", data);
-
+                            //sendData(edt.getText().toString());
+                            myIntent.putExtra("answer",edt.getText().toString());
                             startActivity(myIntent);
                         } catch (Exception e) {
                             Toast.makeText(getApplicationContext(), ""+e, Toast.LENGTH_LONG).show();
@@ -81,6 +79,15 @@ public class QuestTabC extends AppCompatActivity {
                 }));
             } catch (Exception e) {
             }
+        }
+    }
+    public void sendData(String  msg){
+        msg +="\n";
+        try{
+            output.write(msg.getBytes());
+        }catch(Exception e){
+            Toast.makeText(getApplicationContext(),"Bluetooth connection failed.",Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 
