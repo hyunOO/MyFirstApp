@@ -9,6 +9,20 @@
     tools:layout_editor_absoluteX="0dp">
 
     <Button
+        android:id="@+id/button03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/button02"
+        android:layout_alignLeft="@+id/button02"
+        android:layout_alignRight="@+id/button02"
+        android:layout_alignStart="@+id/button02"
+        android:layout_below="@+id/button02"
+        android:layout_marginTop="62dp"
+        android:text="Free"
+        tools:layout_editor_absoluteX="187dp"
+        tools:layout_editor_absoluteY="287dp" />
+
+    <Button
         android:id="@+id/button01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,17 +47,4 @@
         tools:layout_editor_absoluteX="186dp"
         tools:layout_editor_absoluteY="198dp" />
 
-    <Button
-        android:id="@+id/button03"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Free"
-        tools:layout_editor_absoluteY="287dp"
-        tools:layout_editor_absoluteX="187dp"
-        android:layout_marginTop="62dp"
-        android:layout_below="@+id/button02"
-        android:layout_alignLeft="@+id/button02"
-        android:layout_alignStart="@+id/button02"
-        android:layout_alignRight="@+id/button02"
-        android:layout_alignEnd="@+id/button02" />
 </RelativeLayout>
