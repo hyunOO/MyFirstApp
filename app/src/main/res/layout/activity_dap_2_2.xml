@@ -21,7 +21,8 @@
             android:id="@+id/after_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="번째 질문입니다."/>
+            android:text="번째 질문입니다."
+            android:textSize="20sp" />
     </LinearLayout>
 
 
@@ -29,7 +30,8 @@
         android:id="@+id/insert_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="입력한 질문입니다."/>
+        android:text="입력한 질문입니다."
+        android:textSize="20sp" />
 
 
     <TextView
@@ -41,7 +43,8 @@
         android:id="@+id/below_is_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="출제자가 입력한 답입니다."/>
+        android:text="출제자가 입력한 답입니다."
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/show_answer"
@@ -53,7 +56,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="답을 아시겠습니까?" />
+        android:text="답을 아시겠습니까?"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/submit_possible_dap"
