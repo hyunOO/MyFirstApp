@@ -9,14 +9,16 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/start_game"
-        style="@style/Widget.AppCompat.Button.Borderless"
+
+        android:id="@+id/start_with_answer"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:text="START"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="200dp" />
+        android:layout_height="wrap_content"
+        android:text="스무고개 문제 풀기" />
+
+    <Button
+        android:id="@+id/start_with_problem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="스무고개 문제 출제" />
 
 </LinearLayout>
