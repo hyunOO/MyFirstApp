@@ -308,8 +308,7 @@ public class TabA extends AppCompatActivity {
                         ListViewItem lv = new ListViewItem();
                         lv.setText1(cursor.getString(0));
                         String str = cursor.getString(1);
-                        String real_str = str.substring(0, 7) + str.charAt(8) + "-" + str.substring(9, 12) + str.charAt(12);
-                        lv.setText2(real_str);
+                        lv.setText2(str);
                         lvi.add(lv);
                     }
                 } while (cursor.moveToNext());
