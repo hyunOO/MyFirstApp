@@ -146,6 +146,7 @@ public class TabA extends AppCompatActivity {
             }
         });
 
+        //modify버튼은 전화걸기 버튼으로 변경되었다.
         modifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
