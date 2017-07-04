@@ -30,6 +30,7 @@ import java.util.jar.Attributes;
 */
 
 public class QuestTabC extends AppCompatActivity {
+    OutputStream output = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,19 @@ public class QuestTabC extends AppCompatActivity {
         final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         BluetoothDevice target_device = null;
+
+        Button btn01 = (Button)findViewById(R.id.button);
+        final EditText texts = (EditText)findViewById(R.id.textView3);
+
+        btn01.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendData(texts.getText().toString());
+                Intent intent = new Intent(getApplicationContext(), QuestTabC2.class);
+                intent.putExtra("answer",texts.getText().toString());
+                startActivity(intent);
+            }
+        });
 
         if (pairedDevices.size() != 1) {
 
@@ -81,6 +95,15 @@ public class QuestTabC extends AppCompatActivity {
                 }));
             } catch (Exception e) {
             }
+        }
+    }
+    public void sendData(String  msg){
+        msg +="\n";
+        try{
+            output.write(msg.getBytes());
+        }catch(Exception e){
+            Toast.makeText(getApplicationContext(),"Bluetooth connection failed.",Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 

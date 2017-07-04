@@ -5,95 +5,72 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Handler;
+
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
-/*
-    문제를 푸는 사람에 대한 두번째 클래스
-    문제를 푸는 사람이 클라이언트의 역할을 하게된다.
-    질문을 입력하고 답을 받는다.
-*/
+/**
+ * Created by q on 2017-07-03.
+ */
 
+public class QuestTabC2 extends AppCompatActivity{
 
-public class AnswerTabC1 extends AppCompatActivity {
+    BluetoothAdapter adapter;
+    BluetoothDevice device;
     BluetoothSocket socket = null;
     OutputStream output = null;
     InputStream input = null;
 
     Thread thd = null;
 
-    TextView view;
+    TextView ques_text;
+
+    int ban_number = 0;
+    int ban_limit = 3;
 
     byte[] buffer;
     int buf_position;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dap_2);
-
+        setContentView(R.layout.activity_que_2);
         Intent intent = getIntent();
-        Data data = (Data) intent.getSerializableExtra("OBJECT");
-        final BluetoothSocket clientSocket = data.getData();
         final String answer = intent.getExtras().getString("answer");
 
-        final EditText texts = (EditText)findViewById(R.id.question_to_quest);
-        Button btn03 = (Button)findViewById(R.id.submit_dap_to_quest);
-        view = (TextView)findViewById(R.id.show_answer);
+        final Button ban_button = (Button)findViewById(R.id.ban);
+        Button insert_button = (Button)findViewById(R.id.button3);
+        ques_text = (TextView)findViewById(R.id.textView7);
+        final EditText ans_text = (EditText)findViewById(R.id.textView4);
 
-        Intent newintent = new Intent(getApplicationContext(),AnswerTabC2.class);
-        newintent.putExtra("answer",answer);
-
-        btn03.setOnClickListener(new View.OnClickListener() {
+        insert_button.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                sendData(texts.getText().toString());
-                texts.setText("");
+            public void onClick(View v){
+                sendData(ans_text.getText().toString());
+                ans_text.setText("");
+
             }
         });
-
         listenForData();
-        if (view.getText().toString()!=""){
-            startActivity(newintent);
-        }
-
-
-        try{
-            final ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
-
-            Button btn = (Button) findViewById(R.id.submit_dap_to_quest);
-            btn.setOnClickListener((new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EditText edt = (EditText) findViewById(R.id.question_to_quest);
-                    Object str = edt.getText().toString();
-                    try{
-                        oos.writeObject(str);
-                        oos.flush();
-                        Data data = new Data();
-                        data.setData(clientSocket);
-                        Intent myIntent = new Intent(getApplicationContext(), AnswerTabC2.class);
-                        myIntent.putExtra("OBJECT", data);
-                        myIntent.putExtra("STRING", (String) str);
-                        startActivity(myIntent);
-                    }
-                    catch(Exception e){}
+        ban_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if (ban_number<ban_limit) {
+                    ban_number += 1;
+                    Toast.makeText(getApplicationContext(), "You banned " + ban_number + " questions.\nYou can ban " + ban_limit + " more questions.", Toast.LENGTH_LONG).show();
+                    ques_text.setText("");
+                }else{
+                    Toast.makeText(getApplicationContext(),"You can't ban questions.",Toast.LENGTH_LONG).show();
                 }
-            }));
-        }
-        catch(Exception e){ }
-
-
+            }
+        });
     }
     public void sendData(String  msg){
         msg +="\n";
@@ -104,7 +81,6 @@ public class AnswerTabC1 extends AppCompatActivity {
             finish();
         }
     }
-
     public void listenForData(){
         final Handler handler = new Handler();
         buf_position=0;
@@ -129,7 +105,7 @@ public class AnswerTabC1 extends AppCompatActivity {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            view.setText(data+"\n");
+                                            ques_text.setText(data+"\n");
                                         }
                                     });
                                 }else{
@@ -144,9 +120,5 @@ public class AnswerTabC1 extends AppCompatActivity {
                 }
             }
         });
-    }
-    @Override
-    public void onBackPressed(){
-        super.onBackPressed();
     }
 }
