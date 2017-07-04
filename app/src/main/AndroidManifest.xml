@@ -35,6 +35,8 @@
         <activity android:name=".AnswerTabC3"></activity>
         <activity android:name=".AnswerTabCAnswer"></activity>
         <activity android:name=".QuestTabCAnswer"></activity>
+        <activity android:name=".AnswerTabCFail"></activity>
+        <activity android:name=".QuestTabCFail"></activity>
     </application>
 
 </manifest>

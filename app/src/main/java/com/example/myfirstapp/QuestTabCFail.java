@@ -8,12 +8,12 @@ import android.support.v7.app.AppCompatActivity;
  * Created by q on 2017-07-04.
  */
 
-public class QuestTabCAnswer extends AppCompatActivity {
+public class QuestTabCFail extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_que_4);
+        setContentView(R.layout.activity_quest_fail);
 /*
         final Intent myIntent = new Intent(getApplicationContext(), TabC.class);
         try{

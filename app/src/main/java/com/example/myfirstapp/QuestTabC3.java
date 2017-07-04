@@ -48,27 +48,39 @@ public class QuestTabC3  extends AppCompatActivity {
                 String s2 = s.replace("-", "");
                 UUID uuid = new UUID(new BigInteger(s2.substring(0, 16), 16).longValue(), new BigInteger(s2.substring(16), 16).longValue());
                 final BluetoothSocket clientSocket = target_device.createRfcommSocketToServiceRecord(uuid);
-                clientSocket.connect();
+                //clientSocket.connect();
 
                 Thread thread1 = new Thread(new Runnable() {
                     public void run() {
                         try{
+                            clientSocket.connect();
                             ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
                             String obj = (String) ois.readObject();
 
                             if(obj.equals(answer)){
                                 Intent myIntent = new Intent(getApplicationContext(), QuestTabCAnswer.class);
-                                myIntent.putExtra("ANSWER", answer);
-                                myIntent.putExtra("QUESTION", (String) obj);
                                 clientSocket.close();
                                 startActivity(myIntent);
                             }
                             else{
-                                Intent myIntent = new Intent(getApplicationContext(), QuestTabC1.class);
+                                if(get_count == 20){
+                                    Intent myIntent = new Intent(getApplicationContext(), QuestTabCFail.class);
+                                    startActivity(myIntent);
+                                }
+                                final Intent myIntent = new Intent(getApplicationContext(), QuestTabC1.class);
                                 myIntent.putExtra("ANSWER", answer);
                                 myIntent.putExtra("COUNT", get_count+1);
                                 clientSocket.close();
-                                startActivity(myIntent);
+                                //startActivity(myIntent);
+
+                                Thread thread1 = new Thread(new Runnable() {
+                                    public void run() {
+                                        startActivity(myIntent);
+                                    }
+                                });
+                                thread1.sleep(2000);
+                                thread1.run();
+
                             }
                         }
                         catch (Exception e) {
