@@ -196,6 +196,7 @@ public class TabA extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"삭제할 항목을 선택해주세요.",Toast.LENGTH_SHORT).show();
                 }else if (checked_item!=-1){
                     adapter1.deleteItem(checked_item);
+                    listView.setItemChecked(checked_item,false);
                 }else{
                     Toast.makeText(getApplicationContext(),"삭제할 항목을 선택해주세요.",Toast.LENGTH_SHORT).show();
                 }
@@ -333,7 +334,6 @@ public class TabA extends AppCompatActivity {
             }
         }
     }
-
 
     @Override
     public void onBackPressed(){
