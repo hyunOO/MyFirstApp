@@ -33,7 +33,7 @@ public class QuestTabC1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_que_1_2);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         final String answer =intent.getStringExtra("ANSWER");
         final int get_count = intent.getIntExtra("COUNT", 0);
 
@@ -57,6 +57,11 @@ public class QuestTabC1 extends AppCompatActivity {
                 Thread thread1 = new Thread(new Runnable() {
                     public void run() {
                         try{
+
+                            if(mBluetoothAdapter.isDiscovering()){
+                                mBluetoothAdapter.cancelDiscovery();
+                            }
+
                             clientSocket.connect();
                             ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
                             Object obj = ois.readObject();
@@ -64,6 +69,7 @@ public class QuestTabC1 extends AppCompatActivity {
                             myIntent.putExtra("ANSWER", answer);
                             myIntent.putExtra("QUESTION", (String) obj);
                             myIntent.putExtra("COUNT", get_count);
+                            ois.close();
                             clientSocket.close();
                             startActivity(myIntent);
                         }

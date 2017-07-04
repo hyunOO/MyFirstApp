@@ -55,6 +55,10 @@ public class AnswerTabC2 extends AppCompatActivity {
                 Thread thread1 = new Thread(new Runnable() {
                     public void run() {
                         try {
+                            if(mBluetoothAdapter.isDiscovering()){
+                                mBluetoothAdapter.cancelDiscovery();
+                            }
+
                             clientSocket.connect();
                             ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
                             Object obj = inputStream.readObject();
@@ -63,6 +67,7 @@ public class AnswerTabC2 extends AppCompatActivity {
                             myIntent.putExtra("ANSWER", str_ans);
                             myIntent.putExtra("COUNT", get_count);
                             myIntent.putExtra("ANSWERHI", (String) obj);
+                            inputStream.close();
                             clientSocket.close();
                             startActivity(myIntent);
                         } catch (Exception e) {
