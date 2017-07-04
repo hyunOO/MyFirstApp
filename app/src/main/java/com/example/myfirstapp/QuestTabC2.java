@@ -35,11 +35,11 @@ public class QuestTabC2 extends AppCompatActivity {
         Intent intent = getIntent();
         final String hi_ans = intent.getStringExtra("ANSWER");
         final String quest = intent.getStringExtra("QUESTION");
-        //TextView txt = (TextView) findViewById(R.id.textView7);
-       // txt.setText(quest);
-        //final String count = intent.getStringExtra("COUNT");
-       // TextView txv = (TextView) findViewById(R.id.count_hi);
-        //txv.setText(Integer.parseInt(count));
+        TextView txt = (TextView) findViewById(R.id.textView7965);
+        txt.setText(quest);
+        final int get_count = intent.getIntExtra("COUNT", 0);
+        TextView txv = (TextView) findViewById(R.id.count_hi);
+        txv.setText(""+get_count);
 
         final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
@@ -73,7 +73,7 @@ public class QuestTabC2 extends AppCompatActivity {
                                 Intent intent = new Intent (getApplicationContext(), QuestTabC3.class);
                                 intent.putExtra("QUEST", quest);
                                 intent.putExtra("ANSWER", hi_ans);
-                                //intent.putExtra("COUNT", Integer.parseInt(count));
+                                intent.putExtra("COUNT", get_count);
                                 socket.close();
                                 startActivity(intent);
                             }

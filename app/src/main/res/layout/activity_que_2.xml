@@ -32,7 +32,7 @@
 
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textView7965"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
@@ -43,29 +43,15 @@
         android:layout_height="wrap_content"
         android:text="답을 입력하세요." />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/textView4567"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/textView4567"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/button36879"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="입력" />
-    </LinearLayout>
+        android:layout_height="wrap_content"/>
 
     <Button
-        android:id="@+id/ban"
-        style="@style/Widget.AppCompat.Button"
+        android:id="@+id/button36879"
         android:layout_width="match_parent"
-        android:layout_height="37dp"
-        android:text="BAN" />
+        android:layout_height="wrap_content"
+        android:text="입력" />
+
 </LinearLayout>

@@ -36,9 +36,9 @@ public class AnswerTabC1 extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String str_ans = intent.getStringExtra("ANSWER");
-        //final String count = intent.getStringExtra("COUNT");
-       // TextView txv = (TextView) findViewById(R.id.count);
-        //txv.setText(Integer.parseInt(count));
+        final int get_count = intent.getIntExtra("COUNT", 0);
+        TextView txv = (TextView) findViewById(R.id.count);
+        txv.setText(""+get_count);
 
         final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
@@ -69,8 +69,8 @@ public class AnswerTabC1 extends AppCompatActivity {
                             outputStream.flush();
                             Intent myIntent = new Intent(getApplicationContext(), AnswerTabC2.class);
                             myIntent.putExtra("ANSWER", str_ans);
-                            myIntent.putExtra("STRING", (String) str);
-                           // myIntent.putExtra("COUNT", Integer.parseInt(count));
+                            myIntent.putExtra("ANSWERFORQUEST", (String) str);
+                            myIntent.putExtra("COUNT", get_count);
                             outputStream.close();
                             serverSocket.close();
                             socket.close();
