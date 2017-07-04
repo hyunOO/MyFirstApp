@@ -14,18 +14,21 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="답안자가 입력한 " />
+            android:text="답안자가 입력한 "
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/count_hi"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/textView643"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="번째 질문입니다." />
+            android:text="번째 질문입니다."
+            android:textSize="15sp"/>
 
 
     </LinearLayout>
@@ -35,13 +38,15 @@
         android:id="@+id/textView7965"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="15sp"/>
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="답을 입력하세요." />
+        android:text="답을 입력하세요."
+        android:textSize="15sp"/>
 
     <EditText
         android:id="@+id/textView4567"

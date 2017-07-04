@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
@@ -34,6 +36,7 @@ public class AnswerTabC2 extends AppCompatActivity {
         final String str_ans = intent.getStringExtra("ANSWER");
         final String quest = intent.getStringExtra("ANSWERFORQUEST");
         final int get_count = intent.getIntExtra("COUNT", 0);
+        final ArrayList<String> sending = intent.getStringArrayListExtra("ARRAY");
 
         final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
@@ -67,6 +70,10 @@ public class AnswerTabC2 extends AppCompatActivity {
                             myIntent.putExtra("ANSWER", str_ans);
                             myIntent.putExtra("COUNT", get_count);
                             myIntent.putExtra("ANSWERHI", (String) obj);
+                            ArrayList<String> real_sending = sending;
+                            real_sending.add(quest);
+                            real_sending.add((String) obj);
+                            myIntent.putStringArrayListExtra("ARRAY", real_sending);
                             clientSocket.close();
                             startActivity(myIntent);
                         } catch (Exception e) {

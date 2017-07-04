@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
@@ -37,6 +38,7 @@ public class AnswerTabC1 extends AppCompatActivity {
         Intent intent = getIntent();
         final String str_ans = intent.getStringExtra("ANSWER");
         final int get_count = intent.getIntExtra("COUNT", 0);
+        final ArrayList<String> sending = intent.getStringArrayListExtra("ARRAY");
         TextView txv = (TextView) findViewById(R.id.count);
         txv.setText(""+get_count);
 
@@ -103,6 +105,7 @@ public class AnswerTabC1 extends AppCompatActivity {
                             myIntent.putExtra("ANSWER", str_ans);
                             myIntent.putExtra("ANSWERFORQUEST", (String) str);
                             myIntent.putExtra("COUNT", get_count);
+                            myIntent.putStringArrayListExtra("ARRAY", sending);
                             serverSocket.close();
                             socket.close();
 

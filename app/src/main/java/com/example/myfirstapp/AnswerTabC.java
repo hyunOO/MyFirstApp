@@ -18,6 +18,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
@@ -62,8 +63,10 @@ public class AnswerTabC extends AppCompatActivity {
                             ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
                             Object obj = inputStream.readObject();
                             Intent myIntent = new Intent(getApplicationContext(), AnswerTabC1.class);
+                            ArrayList<String> ars = new ArrayList<>();
                             myIntent.putExtra("ANSWER", (String) obj);
                             myIntent.putExtra("COUNT", 1);
+                            myIntent.putStringArrayListExtra("ARRAY", ars);
                             clientSocket.close();
                             startActivity(myIntent);
                         } catch (Exception e) {

@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center_vertical">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -22,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="번째 질문입니다."
-            android:textSize="20sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
 
@@ -31,33 +32,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="입력한 질문입니다."
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
 
     <TextView
         android:id="@+id/question_to_quest"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="15sp"/>
 
     <TextView
         android:id="@+id/below_is_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="출제자가 입력한 답입니다."
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/show_answer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textSize="15sp"/>
 
     <TextView
         android:id="@+id/dap_3_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="답을 아시겠습니까? 예상하는 답을 입력하세요."
-        android:textSize="20sp" />
+        android:text="예상하는 답을 입력하세요."
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/submit_possible_dap"
@@ -70,13 +73,22 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal"
-        android:weightSum="1">
+        android:textSize="15sp">
+
+        <Button
+            android:id="@+id/view_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="질문-답 목록보기"
+            />
 
         <Button
             android:id="@+id/submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="제출" />
+
+
 
     </LinearLayout>
 

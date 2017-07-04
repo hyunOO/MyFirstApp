@@ -4,14 +4,19 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -20,8 +25,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
+
+import static com.example.myfirstapp.R.layout.dialog;
 
 /*
     문제를 푸는 사람에 대한 네번째 클래스
@@ -41,6 +49,8 @@ public class AnswerTabC3  extends AppCompatActivity {
         final String quest = intent.getStringExtra("ANSWERFORQUEST");
         final String ans_pro = intent.getStringExtra("ANSWERHI");
         final int get_count = intent.getIntExtra("COUNT", 0);
+        final ArrayList<String> sending = intent.getStringArrayListExtra("ARRAY");
+
 
         TextView txt_hi = (TextView) findViewById(R.id.question_to_quest);
         txt_hi.setText(quest);
@@ -97,6 +107,7 @@ public class AnswerTabC3  extends AppCompatActivity {
                                         final Intent myIntent = new Intent(getApplicationContext(), AnswerTabC1.class);
                                         myIntent.putExtra("ANSWER", str_ans);
                                         myIntent.putExtra("COUNT", get_count+1);
+                                        myIntent.putStringArrayListExtra("ARRAY", sending);
                                         serverSocket.close();
                                         socket.close();
                                         startActivity(myIntent);
@@ -106,6 +117,48 @@ public class AnswerTabC3  extends AppCompatActivity {
                             }
                         }
                     }));
+
+                    Button btn2 = (Button) findViewById(R.id.view_button);
+                    btn2.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            /*
+                            for(int i = 0; i < sending.size(); i++) {
+                                TextView txv = (TextView) findViewById(R.id.txtDlgHistory);
+                                txv.setText(sending.get(i));
+                                final ScrollView scv = (ScrollView) findViewById(R.id.scrollDlgHistory);
+                                scv.fullScroll(txv.FOCUS_DOWN);
+                            }
+
+*/
+                            Context mContext = getApplicationContext();
+                            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+                            LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.activity_list_dap, null);
+
+                            for(int i = 0; i < sending.size(); i++) {
+                                TextView txv = new TextView(AnswerTabC3.this);
+                                if(i%2 == 0){
+                                    txv.setText("질문 : "+sending.get(i));
+                                }
+                                else{
+                                    txv.setText("답변 : "+sending.get(i));
+                                }
+                                layout.addView(txv);
+                            }
+
+                            AlertDialog.Builder alert = new AlertDialog.Builder(AnswerTabC3.this);
+                            alert.setTitle("질문-답 목록");
+                            alert.setView(layout);
+                            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            alert.show();
+
+
+                        }
+                    });
+
             } catch (IOException e) {
             }
         }

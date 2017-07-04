@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal|center_vertical">
 
     <TextView
         android:id="@+id/dap_1_text"
@@ -9,6 +11,6 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal|center_vertical"
         android:text="질문자가 답을 작성하는 중입니다. 기다려주세요"
-        android:textSize="40sp" />
+        android:textSize="15sp" />
 
 </LinearLayout>
