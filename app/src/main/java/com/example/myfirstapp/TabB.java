@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 public class TabB extends AppCompatActivity {
     int[] imgid ={R.drawable.img20,R.drawable.img19,R.drawable.img18, R.drawable.img17, R.drawable.img16,R.drawable.img15,R.drawable.img12, R.drawable.img11,R.drawable.img10, R.drawable.img9,R.drawable.img1, R.drawable.img2, R.drawable.img3,R.drawable.img4, R.drawable.img5,R.drawable.img6, R.drawable.img7};
-
+    String[] str_img = {"drawable.img20","drawable.img19","drawable.img18", "drawable.img17", "drawable.img16","drawable.img15","drawable.img12", "drawable.img11","drawable.img10", "drawable.img9","drawable.img1", "drawable.img2", "drawable.img3","drawable.img4", "drawable.img5","drawable.img6", "drawable.img7"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +31,7 @@ public class TabB extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long l_position){
             Intent intent = new Intent(getApplicationContext(), Image.class);
             intent.putExtra("img",imgid[position]);
+            intent.putExtra("name",str_img[position]);
             startActivity(intent);
 
         }

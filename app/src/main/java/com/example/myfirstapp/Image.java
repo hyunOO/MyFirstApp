@@ -17,8 +17,10 @@ public class Image extends Activity {
         setContentView(R.layout.activity_image);
 
         ImageView iv = (ImageView)findViewById(R.id.imageView3);
+        TextView show_name = (TextView)findViewById(R.id.textView9);
 
         Intent intent = getIntent();
         iv.setImageResource(intent.getIntExtra("img",0));
+        show_name.setText(intent.getStringExtra("name"));
     }
 }

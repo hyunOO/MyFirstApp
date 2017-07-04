@@ -21,6 +21,18 @@
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/img7"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="-1dp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-13dp"
+        android:elevation="1dp"
+        android:focusable="true"
+        android:gravity="center_horizontal|end"
+        android:text="TextView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        tools:layout_editor_absoluteX="163dp" />
 
 </android.support.constraint.ConstraintLayout>
