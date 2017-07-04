@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myfirstapp">
-
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name= "android.permission.BLUETOOTH_ADMIN"/>
 
     <application
         android:allowBackup="true"
@@ -14,28 +13,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".loading">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TabA" />
-        <activity android:name=".TabB" />
-        <activity android:name=".TabC" />
-        <activity android:name=".Image" />
-        <activity android:name=".AnswerTabC" />
-        <activity android:name=".QuestTabC" />
-        <activity android:name=".AnswerTabC1" />
-        <activity android:name=".QuestTabC1" />
-        <activity android:name=".QuestTabC2" />
-        <activity android:name=".AnswerTabC2" />
-        <activity android:name=".QuestTabC3" />
-        <activity android:name=".AnswerTabC3" />
-        <activity android:name=".AnswerTabCAnswer" />
-        <activity android:name=".QuestTabCAnswer" />
-        <activity android:name=".MainActivity" />
+
+        <activity android:name= ".TabA"></activity>
+        <activity android:name= ".TabB"></activity>
+        <activity android:name= ".TabC"></activity>
+        <activity android:name= ".Image"></activity>
+        <activity android:name=".AnswerTabC"></activity>
+        <activity android:name=".QuestTabC"></activity>
+        <activity android:name=".AnswerTabC1"></activity>
+        <activity android:name=".QuestTabC1"></activity>
+        <activity android:name=".QuestTabC2"></activity>
+        <activity android:name=".AnswerTabC2"></activity>
+        <activity android:name=".QuestTabC3"></activity>
+        <activity android:name=".AnswerTabC3"></activity>
+        <activity android:name=".AnswerTabCAnswer"></activity>
+        <activity android:name=".QuestTabCAnswer"></activity>
+        <activity android:name=".AnswerTabCFail"></activity>
+        <activity android:name=".QuestTabCFail"></activity>
     </application>
 
 </manifest>

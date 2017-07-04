@@ -89,7 +89,11 @@ public class AnswerTabC3  extends AppCompatActivity {
                                     startActivity(myIntent);
                                 }
                                 else{
-                                    Intent myIntent = new Intent(getApplicationContext(), AnswerTabC1.class);
+                                    if(get_count == 20){
+                                        Intent intent = new Intent(getApplicationContext(), AnswerTabCFail.class);
+                                        startActivity(intent);
+                                    }
+                                    final Intent myIntent = new Intent(getApplicationContext(), AnswerTabC1.class);
                                     myIntent.putExtra("ANSWER", str_ans);
                                     myIntent.putExtra("COUNT", get_count+1);
                                     startActivity(myIntent);

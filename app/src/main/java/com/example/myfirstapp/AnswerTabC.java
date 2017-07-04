@@ -48,16 +48,17 @@ public class AnswerTabC extends AppCompatActivity {
                 String s2 = s.replace("-", "");
                 UUID uuid = new UUID(new BigInteger(s2.substring(0, 16), 16).longValue(), new BigInteger(s2.substring(16), 16).longValue());
                 final BluetoothSocket clientSocket = target_device.createRfcommSocketToServiceRecord(uuid);
-                clientSocket.connect();
+                //clientSocket.connect();
 
                 Thread thread1 = new Thread(new Runnable() {
                     public void run() {
                         try {
+                            clientSocket.connect();
                             ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
                             Object obj = inputStream.readObject();
                             Intent myIntent = new Intent(getApplicationContext(), AnswerTabC1.class);
                             myIntent.putExtra("ANSWER", (String) obj);
-                           myIntent.putExtra("COUNT", 1);
+                            myIntent.putExtra("COUNT", 1);
                             clientSocket.close();
                             startActivity(myIntent);
                         } catch (Exception e) {

@@ -66,18 +66,49 @@ public class QuestTabC2 extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             TextView txv = (TextView) findViewById(R.id.textView4567);
-                            String str = txv.getText().toString();
+                            final String str = txv.getText().toString();
+/*
+                            try {
+                                Thread thread1 = new Thread(new Runnable() {
+                                    public void run() {
+                                        try {
+                                            outputStream.writeObject(str);
+                                            outputStream.flush();
+                                            final Intent intent = new Intent(getApplicationContext(), QuestTabC3.class);
+                                            intent.putExtra("QUEST", quest);
+                                            intent.putExtra("ANSWER", hi_ans);
+                                            intent.putExtra("COUNT", get_count);
+                                            socket.close();
+                                            startActivity(intent);
+                                        } catch (Exception e) {
+                                        }
+                                    }
+                                });
+                                thread1.sleep(3000);
+                                thread1.run();
+                            }
+                            catch(Exception e){ }
+                            */
+
                             try{
                                 outputStream.writeObject(str);
                                 outputStream.flush();
-                                Intent intent = new Intent (getApplicationContext(), QuestTabC3.class);
+                                final Intent intent = new Intent (getApplicationContext(), QuestTabC3.class);
                                 intent.putExtra("QUEST", quest);
                                 intent.putExtra("ANSWER", hi_ans);
                                 intent.putExtra("COUNT", get_count);
                                 socket.close();
-                                startActivity(intent);
+                                Thread thread1 = new Thread(new Runnable() {
+                                    public void run() {
+                                        startActivity(intent);
+                                    }
+                                });
+                                thread1.sleep(2000);
+                                thread1.run();
                             }
                             catch(Exception e) {}
+
+
                         }
                     });
             } catch (IOException e) {

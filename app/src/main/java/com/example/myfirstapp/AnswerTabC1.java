@@ -40,6 +40,11 @@ public class AnswerTabC1 extends AppCompatActivity {
         TextView txv = (TextView) findViewById(R.id.count);
         txv.setText(""+get_count);
 
+        if(get_count == 1){
+            TextView txt = (TextView) findViewById(R.id.when_wrong);
+            txt.setVisibility(View.GONE);
+        }
+
         final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         BluetoothDevice target_device = null;
@@ -63,17 +68,53 @@ public class AnswerTabC1 extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         EditText edt = (EditText) findViewById(R.id.question_to_quest);
-                        Object str = edt.getText().toString();
+                        final Object str = edt.getText().toString();
+                        /*
+                        try {
+
+                            Thread thread1 = new Thread(new Runnable() {
+                                public void run() {
+                                    try {
+                                        outputStream.writeObject(str);
+                                        outputStream.flush();
+                                        final Intent myIntent = new Intent(getApplicationContext(), AnswerTabC2.class);
+                                        myIntent.putExtra("ANSWER", str_ans);
+                                        myIntent.putExtra("ANSWERFORQUEST", (String) str);
+                                        myIntent.putExtra("COUNT", get_count);
+                                        outputStream.close();
+                                        serverSocket.close();
+                                        socket.close();
+                                        startActivity(myIntent);
+                                    } catch (Exception e) {
+                                    }
+                                }
+                            });
+                            thread1.sleep(2000);
+                            thread1.run();
+                        }
+                        catch(Exception e) { }
+                        */
+
+
                         try {
                             outputStream.writeObject(str);
                             outputStream.flush();
-                            Intent myIntent = new Intent(getApplicationContext(), AnswerTabC2.class);
+                            final Intent myIntent = new Intent(getApplicationContext(), AnswerTabC2.class);
                             myIntent.putExtra("ANSWER", str_ans);
                             myIntent.putExtra("ANSWERFORQUEST", (String) str);
                             myIntent.putExtra("COUNT", get_count);
                             outputStream.close();
                             serverSocket.close();
                             socket.close();
+
+                            Thread thread1 = new Thread(new Runnable() {
+                                public void run() {
+                                    startActivity(myIntent);
+                                }
+                            });
+                            thread1.sleep(2000);
+                            thread1.run();
+
                             startActivity(myIntent);
                         } catch (Exception e) {
                         }

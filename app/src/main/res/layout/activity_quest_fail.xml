@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/dap_1_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="스무번의 질문이 끝났지만 질문자가 맞추지 못했어요! 어려운 문제를 내셨내요!"
+        android:gravity="center_horizontal|center_vertical"
+        android:textSize="40sp"/>
+
+</LinearLayout>
