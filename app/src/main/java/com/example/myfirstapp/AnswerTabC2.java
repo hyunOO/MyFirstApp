@@ -67,7 +67,6 @@ public class AnswerTabC2 extends AppCompatActivity {
                             myIntent.putExtra("ANSWER", str_ans);
                             myIntent.putExtra("COUNT", get_count);
                             myIntent.putExtra("ANSWERHI", (String) obj);
-                            inputStream.close();
                             clientSocket.close();
                             startActivity(myIntent);
                         } catch (Exception e) {

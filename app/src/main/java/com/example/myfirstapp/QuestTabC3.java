@@ -72,20 +72,23 @@ public class QuestTabC3  extends AppCompatActivity {
                                     Intent myIntent = new Intent(getApplicationContext(), QuestTabCFail.class);
                                     startActivity(myIntent);
                                 }
-                                final Intent myIntent = new Intent(getApplicationContext(), QuestTabC1.class);
-                                myIntent.putExtra("ANSWER", answer);
-                                myIntent.putExtra("COUNT", get_count+1);
-                                clientSocket.close();
-                                //startActivity(myIntent);
+                                else {
 
-                                Thread thread1 = new Thread(new Runnable() {
-                                    public void run() {
-                                        startActivity(myIntent);
-                                    }
-                                });
-                                thread1.sleep(2000);
-                                thread1.run();
+                                    final Intent myIntent = new Intent(getApplicationContext(), QuestTabC1.class);
+                                    myIntent.putExtra("ANSWER", answer);
+                                    myIntent.putExtra("COUNT", get_count + 1);
+                                    clientSocket.close();
+                                    //startActivity(myIntent);
 
+                                    Thread thread1 = new Thread(new Runnable() {
+                                        public void run() {
+                                            startActivity(myIntent);
+                                        }
+                                    });
+                                    thread1.sleep(2000);
+                                    thread1.run();
+
+                                }
                             }
                         }
                         catch (Exception e) {

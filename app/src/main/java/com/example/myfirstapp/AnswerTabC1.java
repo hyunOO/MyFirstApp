@@ -103,7 +103,6 @@ public class AnswerTabC1 extends AppCompatActivity {
                             myIntent.putExtra("ANSWER", str_ans);
                             myIntent.putExtra("ANSWERFORQUEST", (String) str);
                             myIntent.putExtra("COUNT", get_count);
-                            outputStream.close();
                             serverSocket.close();
                             socket.close();
 

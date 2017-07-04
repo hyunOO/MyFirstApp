@@ -69,7 +69,6 @@ public class QuestTabC1 extends AppCompatActivity {
                             myIntent.putExtra("ANSWER", answer);
                             myIntent.putExtra("QUESTION", (String) obj);
                             myIntent.putExtra("COUNT", get_count);
-                            ois.close();
                             clientSocket.close();
                             startActivity(myIntent);
                         }

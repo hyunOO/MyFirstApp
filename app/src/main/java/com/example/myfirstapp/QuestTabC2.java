@@ -99,7 +99,6 @@ public class QuestTabC2 extends AppCompatActivity {
                                 intent.putExtra("COUNT", get_count);
                                 serverSocket.close();
                                 socket.close();
-                                outputStream.close();
                                 Thread thread1 = new Thread(new Runnable() {
                                     public void run() {
                                         startActivity(intent);
