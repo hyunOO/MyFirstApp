@@ -20,15 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name= ".TabA"></activity>
         <activity android:name= ".TabB"></activity>
         <activity android:name= ".TabC"></activity>
         <activity android:name= ".Image"></activity>
         <activity android:name=".AnswerTabC"></activity>
         <activity android:name=".QuestTabC"></activity>
-        <activity android:name=".QuestTabC_2"></activity>
-        <activity android:name=".AnswerTabC_0"></activity>
-        <activity android:name=".AnswerTabC_2"></activity>
+        <activity android:name=".AnswerTabC1"></activity>
+        <activity android:name=".QuestTabC1"></activity>
+        <activity android:name=".AnswerTabC2"></activity>
     </application>
 
 </manifest>
