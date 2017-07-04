@@ -46,16 +46,11 @@ public class QuestTabC extends AppCompatActivity {
             for (BluetoothDevice device : pairedDevices) {
                 target_device = device;
             }
-            BluetoothServerSocket serverSocket = null;
             try {
                 String s = "0f14d0ab-9605-4a62-a9e4-5ed26688389b";
                 String s2 = s.replace("-", "");
                 UUID uuid = new UUID(new BigInteger(s2.substring(0, 16), 16).longValue(), new BigInteger(s2.substring(16), 16).longValue());
-                serverSocket = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("", uuid);
-            } catch (IOException e) {
-            }
-
-            try {
+                final BluetoothServerSocket serverSocket = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("", uuid);
                 final BluetoothSocket socket = serverSocket.accept();
                 final ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 
@@ -68,20 +63,21 @@ public class QuestTabC extends AppCompatActivity {
                         try {
                             outputStream.writeObject(str);
                             outputStream.flush();
-                            Data data = new Data();
-                            data.setData(socket);
                             Intent myIntent = new Intent(getApplicationContext(), QuestTabC1.class);
-                            myIntent.putExtra("OBJECT", data);
-
+                            myIntent.putExtra("ANSWER", (String) str);
+                            //String count = "1";
+                            //myIntent.putExtra("COUNT", count);
+                            socket.close();
+                            serverSocket.close();
                             startActivity(myIntent);
                         } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), ""+e, Toast.LENGTH_LONG).show();
                         }
                     }
                 }));
-            } catch (Exception e) {
+            } catch (IOException e) {
             }
         }
+
     }
 
     @Override

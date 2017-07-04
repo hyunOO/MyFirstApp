@@ -29,7 +29,12 @@
         <activity android:name=".QuestTabC"></activity>
         <activity android:name=".AnswerTabC1"></activity>
         <activity android:name=".QuestTabC1"></activity>
+        <activity android:name=".QuestTabC2"></activity>
         <activity android:name=".AnswerTabC2"></activity>
+        <activity android:name=".QuestTabC3"></activity>
+        <activity android:name=".AnswerTabC3"></activity>
+        <activity android:name=".AnswerTabCAnswer"></activity>
+        <activity android:name=".QuestTabCAnswer"></activity>
     </application>
 
 </manifest>

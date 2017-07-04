@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -54,12 +55,11 @@ public class AnswerTabC extends AppCompatActivity {
                         try {
                             ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
                             Object obj = inputStream.readObject();
-
-                            Toast.makeText(getApplicationContext(), ""+obj, Toast.LENGTH_LONG).show();
-                            Data data = new Data();
-                            data.setData(clientSocket);
                             Intent myIntent = new Intent(getApplicationContext(), AnswerTabC1.class);
-                            myIntent.putExtra("OBJECT", data);
+                            myIntent.putExtra("ANSWER", (String) obj);
+                            //String count = "1";
+                           // myIntent.putExtra("COUNT", count);
+                            clientSocket.close();
                             startActivity(myIntent);
                         } catch (Exception e) {
                         }
@@ -67,44 +67,12 @@ public class AnswerTabC extends AppCompatActivity {
                 });
                 thread1.start();
 
-
-/*
-                ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
-                Object obj = inputStream.readObject();
-                Toast.makeText(getApplicationContext(), ""+obj, Toast.LENGTH_LONG).show();
-                Data data = new Data();
-                data.setData(clientSocket);
-                Intent myIntent = new Intent(getApplicationContext(), AnswerTabC1.class);
-                myIntent.putExtra("OBJECT", data);
-                startActivity(myIntent);
-*/
             }
             catch (Exception e) {
             }
         }
     }
 
-    private class BackgroundThread extends Thread {
-        private BluetoothSocket bsk;
-
-        public void BackgroundThread(BluetoothSocket bsk) {
-            this.bsk = bsk;
-        }
-
-        public void run() {
-            try {
-                ObjectInputStream inputStream = new ObjectInputStream(bsk.getInputStream());
-                Object obj = inputStream.readObject();
-
-                Data data = new Data();
-                data.setData(bsk);
-                Intent myIntent = new Intent(getApplicationContext(), AnswerTabC1.class);
-                myIntent.putExtra("OBJECT", data);
-                startActivity(myIntent);
-            } catch (Exception e) {
-            }
-        }
-    }
 
     @Override
     public void onBackPressed() {

@@ -49,16 +49,4 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/below_is_answer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="출제자가 입력한 답입니다." />
-
-    <TextView
-        android:id="@+id/show_answer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="" />
-
 </LinearLayout>
