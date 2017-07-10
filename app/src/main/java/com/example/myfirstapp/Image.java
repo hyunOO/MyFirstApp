@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 /**
  * Created by q on 2017-07-03.
  */
@@ -26,7 +28,7 @@ public class Image extends Activity {
         Button btn = (Button) findViewById(R.id.button);
 
         Intent intent = getIntent();
-        iv.setImageResource(intent.getIntExtra("img", 0));
+        iv.setImageResource(intent.getIntExtra("img",0));
         show_name.setText(intent.getStringExtra("name"));
 
         btn.setOnClickListener(new View.OnClickListener(){
